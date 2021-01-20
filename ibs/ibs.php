@@ -647,11 +647,11 @@ function ibs_Sync($params) {
         } else if ($result["domainstatus"] != 'PENDING TRANSFER') {
             $values["active"] = true;
         }
-        if (isset($result['expirationdate']) && $result['expirationdate'] != 'n/a') {
-            $values["expirydate"] = str_replace("/", "-", $result['expirationdate']);
+        if (isset($result['paiduntil']) && $result['paiduntil'] != 'n/a') {
+            $values["expirydate"] = str_replace("/", "-", $result['paiduntil']);
         }
-        return $values;
     }
+    return $values;
 }
 
 /**
@@ -1753,7 +1753,10 @@ function ibs_RegisterDomain($params) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
     } else if ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
+    } else{
+        $values ["success"] =true;
     }
+
     if ($result ['product_0_status'] == 'FAILURE') {
         if (isset ($values ["error"])) {
             $values ["error"] .= $result ['product_0_message'];
@@ -3179,13 +3182,14 @@ function ibs_CheckAvailability($params) {
                     )
                 );
             }
+        } elseif(isset($res ["error"])){
+            $result->setStatus(SearchResult::STATUS_TLD_NOT_SUPPORTED);
         } else {
             $result->setStatus(SearchResult::STATUS_REGISTERED);
         }
         $results->Append($result);
 
     }
-
     return $results;
 
 }

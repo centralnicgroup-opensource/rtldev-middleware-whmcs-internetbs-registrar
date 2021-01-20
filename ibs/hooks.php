@@ -372,3 +372,9 @@ function ibs_validatePhone($phoneNumber){
 	}
 }
 
+
+function hook_ibs_syncExpDate($params){
+    ibs_Sync($params);
+}
+
+add_hook('AfterRegistrarRegistration', 1, 'hook_ibs_syncExpDate');
