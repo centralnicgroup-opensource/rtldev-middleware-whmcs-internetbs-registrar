@@ -16,7 +16,7 @@ define('API_SERVER_URL', 'https://api.internet.bs/');
 /**
  * api test server url, when $params['TestMode']='on' is used, then this url will be used
  */
-define('API_TESTSERVER_URL', 'http://api.internet.devel/');
+define('API_TESTSERVER_URL', 'https://77.247.183.107/');
 
 $ibs_last_error = null;
 
