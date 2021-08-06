@@ -1,6 +1,6 @@
 <?php
 
-define (IBS_MODULE_VERSION,'2.9');
+define ("IBS_MODULE_VERSION",'1.0');
 if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
 }
@@ -17,6 +17,8 @@ define('API_SERVER_URL', 'https://api.internet.bs/');
  * api test server url, when $params['TestMode']='on' is used, then this url will be used
  */
 define('API_TESTSERVER_URL', 'https://77.247.183.107/');
+//define('API_TESTSERVER_URL', 'http://api.internet.devel/');
+//define('API_TESTSERVER_URL', 'https://api.internet.bs/');
 
 $ibs_last_error = null;
 
@@ -544,7 +546,7 @@ function ibs_runCommand($commandUrl, $postData) {
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
     curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_USERAGENT, "Internet.bs WHMCS module V".IBS_MODULE_VERSION);
+    curl_setopt($ch, CURLOPT_USERAGENT, "IBS WHMCS module V".IBS_MODULE_VERSION);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
@@ -939,6 +941,7 @@ function ibs_GetEmailForwarding($params) {
  * @return array
  */
 function ibs_SaveEmailForwarding($params) {
+    var_dump(json_encode($params));
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -961,7 +964,7 @@ function ibs_SaveEmailForwarding($params) {
     $rules = ibs_GetEmailForwarding($params);
     if (is_array($rules)) {
         foreach ($rules as $rule) {
-            $source = $rule ["prefix"] . "@" . $domainName;
+            $source = trim($rule ["prefix"],'@ ') . "@" . $domainName;
             $source = urlencode($source);
             $cmdData = array("source" => $source);
             $cmdData = array_merge($cmdData, $data);
@@ -989,7 +992,7 @@ function ibs_SaveEmailForwarding($params) {
         if (trim($to) == '')
             continue;
 
-        $data ['source'] = urlencode($from . '@' . $domainName);
+        $data ['source'] = urlencode(trim($from,'@ ') . '@' . $domainName);
         $data ['destination'] = urlencode($to);
         $commandUrl = $apiServerUrl . 'Domain/EmailForward/Add';
         // try to add rule
@@ -997,7 +1000,7 @@ function ibs_SaveEmailForwarding($params) {
         $errorMessage = ibs_getLastError();
         if ($result === false) {
             $errorMessages .= ibs_getConnectionErrorMessage($errorMessage);
-        } else if ($result['status'] == 'FAILURE') {
+        } else if ($result['status'] === 'FAILURE') {
             $values ["error"] = $result ['message'];
         }
     }
@@ -1215,7 +1218,9 @@ function ibs_SaveDNS($params) {
  * @return array
  */
 function ibs_RegisterDomain($params) {
+    var_dump(json_encode($params));
     $params = ibs_get_utf8_parameters($params);
+    var_dump(json_encode($params));
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -1233,7 +1238,7 @@ function ibs_RegisterDomain($params) {
     } else {
         $domainName = $params["original"]["domainname"];
     }
-    $regperiod = intval($params ["regperiod"]);
+    $regperiod = (int)$params ["regperiod"];
 
     # Registrant Details
     $RegistrantFirstName = $params ["firstname"];
@@ -1755,6 +1760,7 @@ function ibs_RegisterDomain($params) {
         $values ["error"] = $result ['message'];
     } else{
         $values ["success"] =true;
+        //add here chaging date of next billing and next due date
     }
 
     if ($result ['product_0_status'] == 'FAILURE') {
@@ -3341,12 +3347,12 @@ function ibs_domainurlforwarding($params) {
     }
     $data = ibs_GetUrlForwarding($params);
     if (isset($_POST) && count($_POST) > 0) {
-        for ($i = 0; $i < count($data); $i++) {
-            $params["source"] = $data[$i]["hostname"] . "." . $domainName;
+        for ($i = 0, $iMax = count($data); $i < $iMax; $i++) {
+            $params["source"] = trim(trim($data[$i]["hostname"]," .") . "." . $domainName," .");
             $result = ibs_RemoveUrlForwarding($params);
         }
 
-        for ($i = 0; $i < count($_POST["dnsrecordaddress"]); $i++) {
+        for ($i = 0, $iMax = count($_POST["dnsrecordaddress"]); $i < $iMax; $i++) {
 
             $params["hostName"] = $_POST["dnsrecordhost"][$i];
             $params["type"] = $_POST["dnsrecordtype"][$i];
@@ -3367,7 +3373,7 @@ function ibs_domainurlforwarding($params) {
             'domainid' => $domainid,
             'data' => $data,
             'errormessage' => $error,
-            'successmessage' => $successmessage
+            'successmessage' => ''
         ),
     );
 }
@@ -3427,9 +3433,11 @@ function ibs_SaveUrlForwarding($params) {
     $commandUrl = $apiServerUrl . "Domain/UrlForward/Add";
 
     $data = array('apikey' => $username, 'password' => $password);
-    $data['source'] = trim($params["hostName"], ". ") . "." . $domainName;
+    $data['source'] = trim(trim($params["hostName"], ". ") . "." . $domainName,'.');
     $data ['isFramed'] = $params["type"] == 'FRAME' ? 'YES' : 'NO';
-    $data ['Destination'] = $params["address"];
+    $destination = trim($params["address"], " .");
+    $data ['Destination'] = $destination;
+    if(empty($destination)) return false;
     $result = ibs_runCommand($commandUrl, $data);
     $errorMessage = ibs_getLastError();
     $errorMessages='';
@@ -3482,6 +3490,7 @@ function ibs_GetTldPricing(array $params){
 
     $data = array('apikey' => $username, 'password' => $password,"version"=>'5');
     $r = ibs_runCommand($commandUrl, $data);
+    ibs_debugLog(array("action"=>"raw response", "requestParam"=>"","responseParam"=>$r));
     $i=0;
     $extensionData=array();
     while($r['product_'.$i.'_tld']){
@@ -3491,11 +3500,11 @@ function ibs_GetTldPricing(array $params){
             $extensionData[$tld]=array();
         }
         $extensionData[$tld]['currencyCode']= $r['product_' . $i . '_currency'];
-        $extensionData[$tld]['registrationPrice']= $r['product_' . $i . '_regis tration'];
+        $extensionData[$tld]['registrationPrice']= $r['product_' . $i . '_registration'];
         $extensionData[$tld]['renewalPrice']= $r['product_' . $i . '_renewal'];
         $extensionData[$tld]['transferPrice']= $r['product_' . $i . '_transfer'];
         $extensionData[$tld]['redemptionFee']= $r['product_' . $i . '_restore'];
-        $extensionData[$tld]['redemptionDays']= (int)['product_' . $i . '_rgp'] /24;
+        $extensionData[$tld]['redemptionDays']= ((int)trim($r['product_' . $i . '_rgp'])) /24;
         $extensionData[$tld]['transferSecretRequired']= (strtolower($r['product_' . $i . '_authinforequired'])==='yes');
         $extensionData[$tld]['minPeriod']= $r['product_' . $i . '_minperiod'];
         $extensionData[$tld]['maxPeriod']= $r['product_' . $i . '_maxperiod'];
@@ -3507,7 +3516,7 @@ function ibs_GetTldPricing(array $params){
     // return ['error' => 'This error occurred',];
 
     $results = new ResultsList;
-
+    ibs_debugLog(array("action"=>"parsed data", "requestParam"=>"","responseParam"=>$extensionData));
     foreach ($extensionData as $tld=>$extension) {
         // All the set methods can be chained and utilised together.
         $item = (new ImportItem)
