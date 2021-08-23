@@ -1,7 +1,6 @@
 const { series, src, dest } = require('gulp')
 const clean = require('gulp-clean')
 const zip = require('gulp-zip')
-const gzip = require('gulp-gzip')
 const exec = require('util').promisify(require('child_process').exec)
 const cfg = require('./gulpfile.json')
 
