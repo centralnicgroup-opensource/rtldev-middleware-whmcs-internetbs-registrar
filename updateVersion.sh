@@ -8,8 +8,11 @@
 newversion="$1"
 date="$(date +'%Y-%m-%d')"
 
-printf -v sed_script 's/"version" => "[0-9]\+\.[0-9]\+\.[0-9]\+"/"version" => "%s"/g' "${newversion}"
-sed -i -e "${sed_script}" modules/addons/ispapidomaincheck/ispapidomaincheck.php
+printf -v sed_script 's/define("IBS_MODULE_VERSION", "[0-9]\+\.[0-9]\+\.[0-9]\+")/define("IBS_MODULE_VERSION", "%s")/g' "${newversion}"
+sed -i -e "${sed_script}" modules/registrars/ibs/ibs.php
+
+printf -v sed_script 's/"internet\.bs v[0-9]\+\.[0-9]\+\.[0-9]\+"/"internet\.bs v%s"/g' "${newversion}"
+sed -i -e "${sed_script}" modules/registrars/ibs/whmcs.json
 
 printf -v sed_script 's/"version": "[0-9]\+\.[0-9]\+\.[0-9]\+"/"version": "%s"/g' "${newversion}"
 sed -i -e "${sed_script}" release.json
