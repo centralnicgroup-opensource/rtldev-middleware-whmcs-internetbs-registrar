@@ -59,3 +59,19 @@ From the TLDs that require additional data we currently support: .co.uk, .org.uk
 
 Our module is in English, and we provide an Italian translation as well.
 You can find it in the lang/overrides folder, and you need to copy the file italian.php to `WHMCSROOT/lang/overrides/`.
+
+### Developer Corner
+
+Install composer and then care about installing the below global dependencies.
+
+```bash
+composer global require dealerdirect/phpcodesniffer-composer-installer roave/security-advisories:dev-master squizlabs/php_codesniffer phpcompatibility/php-compatibility
+```
+
+Then, before committing, run:
+
+```bash
+phpcbf --standard=PSR12 -q --ignore=node_modules,vendor,templates_c .
+```
+
+This automatically uses CodeSniffer to format the source code in PSR12 code style.
