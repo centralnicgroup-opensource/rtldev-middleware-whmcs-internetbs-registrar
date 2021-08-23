@@ -1,6 +1,6 @@
 <?php
 
-define("IBS_MODULE_VERSION", "0.0.0");
+define("IBS_MODULE_VERSION", "1.0.0");
 
 if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
