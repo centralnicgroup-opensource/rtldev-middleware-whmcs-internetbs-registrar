@@ -11,7 +11,9 @@
         "CONTRIBUTING.md",
         "HISTORY.md",
         "LICENSE",
-        "modules/**"
+        "modules/**",
+        "lang/**",
+        "*.@(tpl|php|html)"
     ],
     "filesForCleanup": [
         "templates_c",

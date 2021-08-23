@@ -91,6 +91,7 @@ exports.prepare = series(
 )
 
 exports.archives = series(
+  exports.copy,
   doGitZip,
   doZip
 )
@@ -101,7 +102,6 @@ exports.default = series(
   doFullClean
 )
 exports.release = series(
-  exports.copy,
   exports.archives,
   doFullClean
 )
