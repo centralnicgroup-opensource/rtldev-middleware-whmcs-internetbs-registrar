@@ -3,6 +3,7 @@
 The Internet.bs Registrar Module is shipped with WHMCS but we have own version of this Registrar Module which should be used instead of the WHMCS built-in Module.
 
 ### Supported Features
+
 * Registrar TLD Sync / Pricing Import (WHMCS 7.10)
 * Domain & Transfer Synchronization
 * Internationl Domain Names (IDNs)
@@ -20,7 +21,6 @@ The Internet.bs Registrar Module is shipped with WHMCS but we have own version o
 * URL Forwarding
 * WHOIS Privacy / ID Protection
 
-
 ### Installation and Migration from older versions
 
 To install our module please download the latest version from [here](https://github.com/internetbs/whmcs-internetbs-registrar/archive/refs/heads/master.zip),
@@ -30,7 +30,7 @@ unpack it locally and then:
 2. Copy trademarkClaim.php to root of your WHMCS installation(needed for new gTLDs)
 3. Copy trademarkClaim.tpl to the your current template directory(needed for new gTLDs)
 4. Copy the file itterms.html to the root of your WHMCS installation (needed for .it domains)
-5. Optionally copy the files in the **language** folder to whmcs lang/overrides folder (Currently we only bundle the Italian transaction. See [below](#localization) for details on adding your own.)
+5. Optionally copy the files in the **lang** folder to root of your WHMCS installation (Currently we only bundle the Italian transaction. See [below](#localization) for details on adding your own.)
 6. Login to whmcs Admin area and activate the module.
 7. Fill in your API key and password, chose whether you want to use the live or the test environment and save. If using in test mode please use testapi/testpass for API key/password.
 8. NOTE: If you plan on configuring the cron job to synchronize expiration dates of your
@@ -45,15 +45,33 @@ unpack it locally and then:
     include(ROOTDIR."/modules/registrars/ibs/ibs_additionaldomainfields.php");
 11. **IMPORTANT NOTE**: If you want to enable premium domains in whmcs, you need to make sure that you define an exchange rate between USD and your currency in Admin the menu Setup→Payments→Currencies. Our module explicitly sets USD when checking the price for premium names and USD price will be sent back to us when confirming the price for the premium name at registration time. Also you need to enable premiu domains for your API KEY in your account in the reseller settings page (need to change “Allow premium domains operations” from NO to YES).
 
-
 <a name="additionalfields"></a>
+
 ### Additional fields
+
 WHMCS provides a way to define additional fields that are needed for some TLDs. We added those for our module WHMCSROOT/resources/domains/dist.additionalfields.php.
 Unfortunately we do not yet have support for all TLDs that have additional fields in our WHMCS module but plan to add it in future releases.
 From the TLDs that require additional data we currently support: .co.uk, .org.uk, .me.uk, .uk, .eu, .be, .asia, .fr, .re, .pm, .tf, .wf, .yt, .it, .de, .nl, .tel, .us
 
 <a name="localization"></a>
+
 ### Localization support
 
 Our module is in English, and we provide an Italian translation as well.
-You can find it in the Languages folder, and you need to copy the file italian.php to WHMCSROOT/lang/overrides/
+You can find it in the lang/overrides folder, and you need to copy the file italian.php to `WHMCSROOT/lang/overrides/`.
+
+### Developer Corner
+
+Install composer and then care about installing the below global dependencies.
+
+```bash
+composer global require dealerdirect/phpcodesniffer-composer-installer roave/security-advisories:dev-master squizlabs/php_codesniffer phpcompatibility/php-compatibility
+```
+
+Then, before committing, run:
+
+```bash
+phpcbf --standard=PSR12 -q --ignore=node_modules,vendor,templates_c .
+```
+
+This automatically uses CodeSniffer to format the source code in PSR12 code style.

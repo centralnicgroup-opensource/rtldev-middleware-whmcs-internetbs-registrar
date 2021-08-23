@@ -1,6 +1,7 @@
 <?php
 
-define ("IBS_MODULE_VERSION",'1.0');
+define("IBS_MODULE_VERSION", "0.0.0");
+
 if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
 }
@@ -22,7 +23,8 @@ define('API_TESTSERVER_URL', 'https://77.247.183.107/');
 
 $ibs_last_error = null;
 
-function ibs_getLastError() {
+function ibs_getLastError()
+{
     global $ibs_last_error;
     return $ibs_last_error;
 }
@@ -32,7 +34,8 @@ function ibs_getLastError() {
  * @param $params
  * @return array
  */
-function ibs_getwhois($params) {
+function ibs_getwhois($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -63,10 +66,10 @@ function ibs_getwhois($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $errormessage = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $errormessage = $result ['message'];
         $idStatus = "unknown";
-    } else if (!$result['status']) {
+    } elseif (!$result['status']) {
         $errormessage = "Id Protection is not supported";
     } else {
         $idStatus = $result ['privatewhoisstatus'];
@@ -97,7 +100,8 @@ function ibs_getwhois($params) {
     );
 }
 
-function ibs_additionalfields($params) {
+function ibs_additionalfields($params)
+{
 
     $additionalFieldValue = $params["additionalfields"];
     $username = $params ["Username"];
@@ -130,7 +134,7 @@ function ibs_additionalfields($params) {
         unset($whoisData['a']);
         unset($whoisData['id']);
         foreach ($whoisData as $key => $value) {
-            if (strpos($key, 'other_') !== FALSE) {
+            if (strpos($key, 'other_') !== false) {
                 $newKey = str_replace("other_", "", $key);
                 $whoisData[$newKey] = $whoisData[$key];
                 unset($whoisData[$key]);
@@ -222,7 +226,7 @@ function ibs_additionalfields($params) {
         # If error, return the error message in the value below
         if ($result === false) {
             $errormessage = ibs_getConnectionErrorMessage($errorMessage);
-        } else if ($result ['status'] == 'FAILURE') {
+        } elseif ($result ['status'] == 'FAILURE') {
             $errormessage = $result ['message'];
         } else {
             $successmessage = "Data Saved Successfully";
@@ -405,7 +409,7 @@ function ibs_additionalfields($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $errormessage = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $errormessage = $result ['message'];
     } else {
         //assign additional fields to new array to display it to the users
@@ -458,7 +462,8 @@ function ibs_additionalfields($params) {
     );
 }
 
-function ibs_ClientAreaCustomButtonArray($params) {
+function ibs_ClientAreaCustomButtonArray($params)
+{
     $params = ibs_get_utf8_parameters($params);
 
     $buttonArray = array();
@@ -481,7 +486,7 @@ function ibs_ClientAreaCustomButtonArray($params) {
     $result = ibs_runCommand($commandUrl, $data);
     $errorMessage = ibs_getLastError();
     /*Code 100014 means feature not supported
-	  If feature is not supported it is not required to show button Manage id protection*/
+      If feature is not supported it is not required to show button Manage id protection*/
     $configButton = array();
     if ($result['code'] != 100014) {
         $whoisButtonArray = array(
@@ -531,7 +536,8 @@ function ibs_ClientAreaCustomButtonArray($params) {
  * @return array
  */
 
-function ibs_runCommand($commandUrl, $postData) {
+function ibs_runCommand($commandUrl, $postData)
+{
     //If field starts with '@', escape it
     foreach ($postData as $key => $value) {
         if (substr($value, 0, 1) == "@") {
@@ -542,11 +548,11 @@ function ibs_runCommand($commandUrl, $postData) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $commandUrl);
 
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
     curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_USERAGENT, "IBS WHMCS module V".IBS_MODULE_VERSION);
+    curl_setopt($ch, CURLOPT_USERAGENT, "IBS WHMCS module V" . IBS_MODULE_VERSION);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
@@ -564,23 +570,26 @@ function ibs_runCommand($commandUrl, $postData) {
 }
 
 
-function ibs_debugLog($data) {
+function ibs_debugLog($data)
+{
     logModuleCall("Internet.bs Registrar Module", $data["action"], $data["requestParam"], $data["responseParam"]);
 }
 
-function ibs_getConnectionErrorMessage($message) {
+function ibs_getConnectionErrorMessage($message)
+{
     return 'Cannot connect to server. [' . $message . ']';
 }
 
-function ibs_getConfigArray() {
+function ibs_getConfigArray()
+{
     $configarray = array(
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'Internet.bs V'.IBS_MODULE_VERSION
+            'Value' => 'Internet.bs V' . IBS_MODULE_VERSION
         ),
         "Description" => array(
             "Type" => "System",
-            "Value"=>"The Official Internet.bs Registrar Module. Get an account here: <a target='blank_' href='https://internetbs.net/newaccount.html'>https://internetbs.net/newaccount.html</a>"
+            "Value" => "The Official Internet.bs Registrar Module. Get an account here: <a target='blank_' href='https://internetbs.net/newaccount.html'>https://internetbs.net/newaccount.html</a>"
         ),
         "Username" => array("Type" => "text", "Size" => "50", "Description" => "Enter your Internet.bs ApiKey here"),
         "Password" => array("Type" => "password", "Size" => "50", "Description" => "Enter your Internet.bs password here"),
@@ -599,7 +608,8 @@ function ibs_getConfigArray() {
  * @param string $data
  * @return array
  */
-function ibs_parseResult($data) {
+function ibs_parseResult($data)
+{
     $result = array();
     $arr = explode("\n", $data);
     foreach ($arr as $str) {
@@ -615,7 +625,8 @@ function ibs_parseResult($data) {
  * Expiration date sync
  * @param $parameters
  */
-function ibs_Sync($params) {
+function ibs_Sync($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -639,14 +650,13 @@ function ibs_Sync($params) {
     $values = array();
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     } else {
         //success
         if ($result["domainstatus"] == "EXPIRED") {
             $values["expired"] = true;
-
-        } else if ($result["domainstatus"] != 'PENDING TRANSFER') {
+        } elseif ($result["domainstatus"] != 'PENDING TRANSFER') {
             $values["active"] = true;
         }
         if (isset($result['paiduntil']) && $result['paiduntil'] != 'n/a') {
@@ -660,7 +670,8 @@ function ibs_Sync($params) {
  * Expiration date sync
  * @param $parameters
  */
-function ibs_TransferSync($params) {
+function ibs_TransferSync($params)
+{
     return ibs_Sync($params);
 }
 
@@ -670,7 +681,8 @@ function ibs_TransferSync($params) {
  * @param array $params
  * @return array
  */
-function ibs_GetNameservers($params) {
+function ibs_GetNameservers($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -693,12 +705,12 @@ function ibs_GetNameservers($params) {
     $errorMessage = ibs_getLastError();
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     } else {
         // possible number of hosts exists
         $i = 0;
-        while (isset ($result ['nameserver_' . $i])) {
+        while (isset($result ['nameserver_' . $i])) {
             $values ['ns' . ($i + 1)] = $result ['nameserver_' . $i];
             ++$i;
         }
@@ -713,7 +725,8 @@ function ibs_GetNameservers($params) {
  * @param array $params
  * @return array
  */
-function ibs_SaveNameservers($params) {
+function ibs_SaveNameservers($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -728,8 +741,8 @@ function ibs_SaveNameservers($params) {
         $paramsData = $params;
     }
     for ($i = 1; $i <= 5; $i++) {
-        if (isset ($paramsData ["ns$i"])) {
-            if (isset ($paramsData ['ns' . $i . '_ip']) && strlen($paramsData ['ns' . $i . '_ip'])) {
+        if (isset($paramsData ["ns$i"])) {
+            if (isset($paramsData ['ns' . $i . '_ip']) && strlen($paramsData ['ns' . $i . '_ip'])) {
                 $paramsData ["ns$i"] .= ' ' . $paramsData ['ns' . $i . '_ip'];
             }
             array_push($nslist, $paramsData ["ns$i"]);
@@ -752,7 +765,7 @@ function ibs_SaveNameservers($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
     return $values;
@@ -764,7 +777,8 @@ function ibs_SaveNameservers($params) {
  * @param array $params
  * @return string
  */
-function ibs_GetRegistrarLock($params) {
+function ibs_GetRegistrarLock($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -788,7 +802,7 @@ function ibs_GetRegistrarLock($params) {
     $errorMessage = ibs_getLastError();
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'SUCCESS') {
+    } elseif ($result ['status'] == 'SUCCESS') {
         if (strtolower($result ['registrar_lock_status']) == 'locked') {
             $lockstatus = "locked";
         } else {
@@ -805,7 +819,8 @@ function ibs_GetRegistrarLock($params) {
  * @param array $params
  * @return array
  */
-function ibs_SaveRegistrarLock($params) {
+function ibs_SaveRegistrarLock($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -839,7 +854,7 @@ function ibs_SaveRegistrarLock($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
 
@@ -851,7 +866,8 @@ function ibs_SaveRegistrarLock($params) {
  * @param $params
  */
 
-function ibs_IDProtectToggle($params) {
+function ibs_IDProtectToggle($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -880,7 +896,7 @@ function ibs_IDProtectToggle($params) {
     $errorMessage = ibs_getLastError();
     if ($result === false) {
         $values["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values["error"] = $result ['message'];
     }
     return $values;
@@ -892,7 +908,8 @@ function ibs_IDProtectToggle($params) {
  * @param array $params
  * @return array
  */
-function ibs_GetEmailForwarding($params) {
+function ibs_GetEmailForwarding($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -916,7 +933,7 @@ function ibs_GetEmailForwarding($params) {
     $errorMessage = ibs_getLastError();
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     } else {
         $totalRules = $result ['total_rules'];
@@ -940,7 +957,8 @@ function ibs_GetEmailForwarding($params) {
  * @param array $params
  * @return array
  */
-function ibs_SaveEmailForwarding($params) {
+function ibs_SaveEmailForwarding($params)
+{
     var_dump(json_encode($params));
     $username = $params ["Username"];
     $password = $params ["Password"];
@@ -964,7 +982,7 @@ function ibs_SaveEmailForwarding($params) {
     $rules = ibs_GetEmailForwarding($params);
     if (is_array($rules)) {
         foreach ($rules as $rule) {
-            $source = trim($rule ["prefix"],'@ ') . "@" . $domainName;
+            $source = trim($rule ["prefix"], '@ ') . "@" . $domainName;
             $source = urlencode($source);
             $cmdData = array("source" => $source);
             $cmdData = array_merge($cmdData, $data);
@@ -989,10 +1007,11 @@ function ibs_SaveEmailForwarding($params) {
     foreach ($prefix as $key => $value) {
         $from = $prefix [$key];
         $to = $forwardto[$key];
-        if (trim($to) == '')
+        if (trim($to) == '') {
             continue;
+        }
 
-        $data ['source'] = urlencode(trim($from,'@ ') . '@' . $domainName);
+        $data ['source'] = urlencode(trim($from, '@ ') . '@' . $domainName);
         $data ['destination'] = urlencode($to);
         $commandUrl = $apiServerUrl . 'Domain/EmailForward/Add';
         // try to add rule
@@ -1000,7 +1019,7 @@ function ibs_SaveEmailForwarding($params) {
         $errorMessage = ibs_getLastError();
         if ($result === false) {
             $errorMessages .= ibs_getConnectionErrorMessage($errorMessage);
-        } else if ($result['status'] === 'FAILURE') {
+        } elseif ($result['status'] === 'FAILURE') {
             $values ["error"] = $result ['message'];
         }
     }
@@ -1010,7 +1029,6 @@ function ibs_SaveEmailForwarding($params) {
     }
 
     return $values;
-
 }
 
 /**
@@ -1019,7 +1037,8 @@ function ibs_SaveEmailForwarding($params) {
  * @param array $params
  * @return array
  */
-function ibs_GetDNS($params) {
+function ibs_GetDNS($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -1060,12 +1079,13 @@ function ibs_GetDNS($params) {
         $totalRecords = $temp;
         for ($i = 0; $i <= $totalRecords; $i++) {
             $recordType = '';
-            if (isset ($result ['records_' . $i . '_type'])) {
+            if (isset($result ['records_' . $i . '_type'])) {
                 $recordType = trim($result ['records_' . $i . '_type']);
             }
-            if (!in_array(strtolower($recordType), array("a", "mx", "cname", 'txt', 'aaaa', 'txt')))
+            if (!in_array(strtolower($recordType), array("a", "mx", "cname", 'txt', 'aaaa', 'txt'))) {
                 continue;
-            if (isset ($result ['records_' . $i . '_name'])) {
+            }
+            if (isset($result ['records_' . $i . '_name'])) {
                 $recordHostname = $result ['records_' . $i . '_name'];
                 $dParts = explode('.', $domainName);
                 $hParts = explode('.', $recordHostname);
@@ -1074,10 +1094,10 @@ function ibs_GetDNS($params) {
                     $recordHostname .= (empty($recordHostname) ? '' : '.') . $hParts[$j];
                 }
             }
-            if (isset ($result ['records_' . $i . '_value'])) {
+            if (isset($result ['records_' . $i . '_value'])) {
                 $recordAddress = $result ['records_' . $i . '_value'];
             }
-            if (isset ($result ['records_' . $i . '_name'])) {
+            if (isset($result ['records_' . $i . '_name'])) {
                 $hostrecords [] = array("hostname" => $recordHostname, "type" => $recordType, "address" => htmlspecialchars($recordAddress), 'priority' => $result['records_' . $i . '_priority']);
             }
         }
@@ -1088,13 +1108,13 @@ function ibs_GetDNS($params) {
         if ($result === false) {
             $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
         } else {
-            $totalRecords = ( int )$result ['total_rules'];
+            $totalRecords = (int)$result ['total_rules'];
             for ($i = 1; $i <= $totalRecords; $i++) {
                 $recordType = '';
-                if (isset ($result ['rule_' . $i . '_isframed'])) {
+                if (isset($result ['rule_' . $i . '_isframed'])) {
                     $recordType = trim($result ['rule_' . $i . '_isframed']) == 'YES' ? "FRAME" : 'URL';
                 }
-                if (isset ($result ['rule_' . $i . '_source'])) {
+                if (isset($result ['rule_' . $i . '_source'])) {
                     $recordHostname = $result ['rule_' . $i . '_source'];
                     $dParts = explode('.', $domainName);
                     $hParts = explode('.', $recordHostname);
@@ -1103,17 +1123,16 @@ function ibs_GetDNS($params) {
                         $recordHostname .= (empty($recordHostname) ? '' : '.') . $hParts[$j];
                     }
                 }
-                if (isset ($result ['rule_' . $i . '_destination'])) {
+                if (isset($result ['rule_' . $i . '_destination'])) {
                     $recordAddress = $result ['rule_' . $i . '_destination'];
                 }
-                if (isset ($result ['rule_' . $i . '_source'])) {
+                if (isset($result ['rule_' . $i . '_source'])) {
                     $hostrecords [] = array("hostname" => $recordHostname, "type" => $recordType, "address" => htmlspecialchars($recordAddress));
                 }
             }
         }
     }
     return (count($hostrecords) ? $hostrecords : $values);
-
 }
 
 /**
@@ -1122,7 +1141,8 @@ function ibs_GetDNS($params) {
  * @param array $params
  * @return array
  */
-function ibs_SaveDNS($params) {
+function ibs_SaveDNS($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -1132,7 +1152,6 @@ function ibs_SaveDNS($params) {
     if (!isset($params["domainname"])) {
         $domainName = $sld . '.' . $tld;
     } elseif (!isset($params["original"]["domainname"])) {
-
         $domainName = $params["domainname"];
     } else {
         $domainName = $params["original"]["domainname"];
@@ -1173,8 +1192,9 @@ function ibs_SaveDNS($params) {
         $hostname = $values ["hostname"];
         $type = $values ["type"];
         $address = $values ["address"];
-        if (trim($hostname) === '' && trim($address) == '')
+        if (trim($hostname) === '' && trim($address) == '') {
             continue;
+        }
 
         # code to update the record
         if (($hostname != $domainName) && strpos($hostname, '.' . $domainName) === false) {
@@ -1205,7 +1225,7 @@ function ibs_SaveDNS($params) {
     # If error, return the error message in the value below
     if (strlen($errorMessages)) {
         $values ["error"] = $errorMessages;
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
     return $values;
@@ -1217,7 +1237,8 @@ function ibs_SaveDNS($params) {
  * @param array $params
  * @return array
  */
-function ibs_RegisterDomain($params) {
+function ibs_RegisterDomain($params)
+{
     var_dump(json_encode($params));
     $params = ibs_get_utf8_parameters($params);
     var_dump(json_encode($params));
@@ -1291,7 +1312,7 @@ function ibs_RegisterDomain($params) {
         $paramsData = $params;
     }
     for ($i = 1; $i <= 5; $i++) {
-        if (isset ($paramsData ["ns$i"])) {
+        if (isset($paramsData ["ns$i"])) {
             array_push($nslist, $paramsData ["ns$i"]);
         }
     }
@@ -1312,7 +1333,7 @@ function ibs_RegisterDomain($params) {
 
     if ($premiumDomainsEnabled && $premiumDomainsCost) {
         $data['confirmpricecurrency'] = 'USD';
-        $data['confirmpriceamount']=$premiumDomainsCost;
+        $data['confirmpriceamount'] = $premiumDomainsCost;
     }
 
     if (isset($tmchId) && isset($tmchNotAfter) && isset($tmchAcceptedDate)) {
@@ -1340,11 +1361,10 @@ function ibs_RegisterDomain($params) {
     $ext = array_pop($extarr);
 
     if ($tld == 'eu' || $tld == 'be' || $ext == 'uk') {
-        $data ['registrant_language'] = isset ($params ['additionalfields'] ['Language']) ? $params ['additionalfields'] ['Language'] : 'en';
+        $data ['registrant_language'] = isset($params ['additionalfields'] ['Language']) ? $params ['additionalfields'] ['Language'] : 'en';
     }
 
     if ($tld == 'eu') {
-
         $europianLanguages = array("cs", "da", "de", "el", "en", "es", "et", "fi", "fr", "hu", "it", "lt", "lv", "mt", "nl", "pl", "pt", "sk", "sl", "sv", "ro", "bg", "ga");
         if (!in_array($data ['registrant_language'], $europianLanguages)) {
             $data ['registrant_language'] = 'en';
@@ -1361,7 +1381,6 @@ function ibs_RegisterDomain($params) {
     }
 
     if ($tld == 'be') {
-
         if (!in_array($data ['registrant_language'], array('en', 'fr', 'nl'))) {
             $data ['registrant_language'] = 'en';
         }
@@ -1456,11 +1475,11 @@ function ibs_RegisterDomain($params) {
 
             if (strtolower($usDomainPurpose) == strtolower('Business use for profit')) {
                 $data['registrant_uspurpose'] = 'P1';
-            } else if (strtolower($usDomainPurpose) == strtolower('Educational purposes')) {
+            } elseif (strtolower($usDomainPurpose) == strtolower('Educational purposes')) {
                 $data['registrant_uspurpose'] = 'P4';
-            } else if (strtolower($usDomainPurpose) == strtolower('Personal Use')) {
+            } elseif (strtolower($usDomainPurpose) == strtolower('Personal Use')) {
                 $data['registrant_uspurpose'] = 'P3';
-            } else if (strtolower($usDomainPurpose) == strtolower('Government purposes')) {
+            } elseif (strtolower($usDomainPurpose) == strtolower('Government purposes')) {
                 $data['registrant_uspurpose'] = 'P5';
             } else {
                 $data['registrant_uspurpose'] = 'P2';
@@ -1481,56 +1500,55 @@ function ibs_RegisterDomain($params) {
     }
 
     if ($ext == 'uk') {
-
         $legalType = $params ['additionalfields'] ['Legal Type'];
         $dotUKOrgType = $legalType;
         switch ($legalType) {
-            case "Individual" :
+            case "Individual":
                 $dotUKOrgType = "IND";
                 break;
-            case "UK Limited Company" :
+            case "UK Limited Company":
                 $dotUKOrgType = "LTD";
                 break;
-            case "UK Public Limited Company" :
+            case "UK Public Limited Company":
                 $dotUKOrgType = "PLC";
                 break;
-            case "UK Partnership" :
+            case "UK Partnership":
                 $dotUKOrgType = "PTNR";
                 break;
-            case "UK Limited Liability Partnership" :
+            case "UK Limited Liability Partnership":
                 $dotUKOrgType = "LLP";
                 break;
-            case "Sole Trader" :
+            case "Sole Trader":
                 $dotUKOrgType = "STRA";
                 break;
-            case "Industrial/Provident Registered Company" :
+            case "Industrial/Provident Registered Company":
                 $dotUKOrgType = "IP";
                 break;
-            case "UK School" :
+            case "UK School":
                 $dotUKOrgType = "SCH";
                 break;
-            case "Government Body" :
+            case "Government Body":
                 $dotUKOrgType = "GOV";
                 break;
-            case "Corporation By Royal Charter" :
+            case "Corporation By Royal Charter":
                 $dotUKOrgType = "CRC";
                 break;
-            case "Uk Statutory Body" :
+            case "Uk Statutory Body":
                 $dotUKOrgType = "STAT";
                 break;
-            case "UK Registered Charity" :
+            case "UK Registered Charity":
                 $dotUKOrgType = "RCHAR";
                 break;
-            case "UK Entity (other)" :
+            case "UK Entity (other)":
                 $dotUKOrgType = "OTHER";
                 break;
-            case "Non-UK Individual" :
+            case "Non-UK Individual":
                 $dotUKOrgType = "FIND";
                 break;
-            case "Non-Uk Corporation" :
+            case "Non-Uk Corporation":
                 $dotUKOrgType = "FCORP";
                 break;
-            case "Other foreign entity" :
+            case "Other foreign entity":
                 $dotUKOrgType = "FOTHER";
                 break;
         }
@@ -1541,7 +1559,7 @@ function ibs_RegisterDomain($params) {
         }
 
         // organization type
-        $data ['registrant_dotUKOrgType'] = isset ($params ['additionalfields'] ['Legal Type']) ? $dotUKOrgType : 'IND';
+        $data ['registrant_dotUKOrgType'] = isset($params ['additionalfields'] ['Legal Type']) ? $dotUKOrgType : 'IND';
         if ($data ['registrant_dotUKOrgType'] == 'IND') {
             // hide data in private whois? (Y/N)
             $data ['registrant_dotUKOptOut'] = 'N';
@@ -1551,7 +1569,6 @@ function ibs_RegisterDomain($params) {
     }
 
     if ($tld == 'asia') {
-
         if (!isset($params['additionalfields']['Locality'])) {
             $asianCountries = array("AF", "AQ", "AM", "AU", "AZ", "BH", "BD", "BT", "BN", "KH", "CN", "CX", "CC", "CK", "CY", "FJ", "GE", "HM", "HK", "IN", "ID", "IR", "IQ", "IL", "JP", "JO", "KZ", "KI", "KP", "KR", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MH", "FM", "MN", "MM", "NR", "NP", "NZ", "NU", "NF", "OM", "PK", "PW", "PS", "PG", "PH", "QA", "WS", "SA", "SG", "SB", "LK", "SY", "TW", "TJ", "TH", "TL", "TK", "TO", "TR", "TM", "TV", "AE", "UZ", "VU", "VN", "YE");
             if (!in_array($RegistrantCountry, $asianCountries)) {
@@ -1565,25 +1582,24 @@ function ibs_RegisterDomain($params) {
         }
         $data ['registrant_dotasiacedentity'] = $params ['additionalfields'] ['Legal Entity Type'];
         if ($data ['registrant_dotasiacedentity'] == 'other') {
-            $data ['registrant_dotasiacedentityother'] = isset ($params ['additionalfields'] ['Other legal entity type']) ? $params ['additionalfields'] ['Other legal entity type'] : 'otheridentity';
+            $data ['registrant_dotasiacedentityother'] = isset($params ['additionalfields'] ['Other legal entity type']) ? $params ['additionalfields'] ['Other legal entity type'] : 'otheridentity';
         }
         $data ['registrant_dotasiacedidform'] = $params ['additionalfields'] ['Identification Form'];
         if ($data ['registrant_dotasiacedidform'] != 'other') {
             $data ['registrant_dotASIACedIdNumber'] = $params ['additionalfields'] ['Identification Number'];
         }
         if ($data ['registrant_dotasiacedidform'] == 'other') {
-            $data ['registrant_dotasiacedidformother'] = isset ($params ['additionalfields'] ['Other identification form']) ? $params ['additionalfields'] ['Other identification form'] : 'otheridentity';
+            $data ['registrant_dotasiacedidformother'] = isset($params ['additionalfields'] ['Other identification form']) ? $params ['additionalfields'] ['Other identification form'] : 'otheridentity';
         }
     }
 
     if (in_array($ext, array('fr', 're', 'pm', 'tf', 'wf', 'yt'))) {
-
-        $holderType = isset ($params ['additionalfields'] ['Holder Type']) ? $params ['additionalfields'] ['Holder Type'] : 'individual';
+        $holderType = isset($params ['additionalfields'] ['Holder Type']) ? $params ['additionalfields'] ['Holder Type'] : 'individual';
         $data ['registrant_dotfrcontactentitytype'] = $holderType;
         $data ['admin_dotfrcontactentitytype'] = $holderType;
 
         switch ($holderType) {
-            case 'individual' :
+            case 'individual':
                 $data ["registrant_dotfrcontactentitybirthdate"] = $params ['additionalfields'] ['Birth Date YYYY-MM-DD'];
                 $data ['registrant_dotfrcontactentitybirthplacecountrycode'] = $params ['additionalfields'] ['Birth Country Code'];
                 $data ['admin_dotfrcontactentitybirthdate'] = $params ['additionalfields'] ['Birth Date YYYY-MM-DD'];
@@ -1594,8 +1610,8 @@ function ibs_RegisterDomain($params) {
                     $data ['admin_dotFRContactEntityBirthCity'] = $params ['additionalfields'] ['Birth City'];
                     $data ['admin_dotFRContactEntityBirthPlacePostalCode'] = $params ['additionalfields'] ['Birth Postal code'];
                 }
-                $data ['registrant_dotFRContactEntityRestrictedPublication'] = isset ($params ['additionalfields'] ['Restricted Publication']) ? 1 : 0;
-                $data ['admin_dotFRContactEntityRestrictedPublication'] = isset ($params ['additionalfields'] ['Restricted Publication']) ? 1 : 0;
+                $data ['registrant_dotFRContactEntityRestrictedPublication'] = isset($params ['additionalfields'] ['Restricted Publication']) ? 1 : 0;
+                $data ['admin_dotFRContactEntityRestrictedPublication'] = isset($params ['additionalfields'] ['Restricted Publication']) ? 1 : 0;
                 break;
             case 'company':
                 $data ['registrant_dotFRContactEntitySiren'] = trim($params ['additionalfields'] ['Siren']);
@@ -1605,8 +1621,8 @@ function ibs_RegisterDomain($params) {
                 $data ['registrant_dotFRContactEntityTradeMark'] = $params ['additionalfields'] ['Trade Mark'];
                 $data ['admin_dotFRContactEntityTradeMark'] = $params ['additionalfields'] ['Trade Mark'];
                 break;
-            case 'association' :
-                if (isset ($params ['additionalfields'] ['Waldec']) && $params['additionalfields']['Waldec'] != "") {
+            case 'association':
+                if (isset($params ['additionalfields'] ['Waldec']) && $params['additionalfields']['Waldec'] != "") {
                     $data ['registrant_dotFRContactEntityWaldec'] = $params ['additionalfields'] ['Waldec'];
                     $data ['admin_dotFRContactEntityWaldec'] = $params ['additionalfields'] ['Waldec'];
                 } else {
@@ -1620,13 +1636,13 @@ function ibs_RegisterDomain($params) {
                     $data ['admin_dotFRContactEntityPageNo'] = $params ['additionalfields'] ['Page No'];
                 }
                 break;
-            case 'other' :
+            case 'other':
                 $data ['registrant_dotFROtherContactEntity'] = $params ['additionalfields'] ['Other Legal Status'];
                 $data ['admin_dotFROtherContactEntity'] = $params ['additionalfields'] ['Other Legal Status'];
-                if (isset ($params ['additionalfields'] ['Siren'])) {
+                if (isset($params ['additionalfields'] ['Siren'])) {
                     $data ['registrant_dotFRContactEntitySiren'] = $params ['additionalfields'] ['Siren'];
                     $data ['admin_dotFRContactEntitySiren'] = $params ['additionalfields'] ['Siren'];
-                } else if (isset ($params ['additionalfields'] ['Trade Mark'])) {
+                } elseif (isset($params ['additionalfields'] ['Trade Mark'])) {
                     $data ['registrant_dotFRContactEntityTradeMark'] = $params ['additionalfields'] ['Trade Mark'];
                     $data ['admin_dotFRContactEntityTradeMark'] = $params ['additionalfields'] ['Trade Mark'];
                 }
@@ -1643,7 +1659,6 @@ function ibs_RegisterDomain($params) {
             $data ['registrant_dotFRContactEntityName'] = empty($RegistrantCompany) ? $RegistrantFirstName . ' ' . $RegistrantLastName : $RegistrantCompany;
             $data ['admin_dotFRContactEntityName'] = empty($AdminCompany) ? $AdminFirstName . ' ' . $AdminLastName : $AdminCompany;
         }
-
     }
 
     if ($tld == 'tel') {
@@ -1688,8 +1703,7 @@ function ibs_RegisterDomain($params) {
             //we cannot fource the country code to be IT
             $data['registrant_countrycode'] = $params['country'];
             $data['registrant_dotitnationality'] = $nationality;
-
-        } else if ($et == 7) {
+        } elseif ($et == 7) {
             if (!in_array($data['registrant_countrycode'], $EUCountries)) {
                 //$data['registrant_countrycode']='FR';
                 $values['error'] = "Registration failed. Registrant should be from EU.";
@@ -1743,11 +1757,9 @@ function ibs_RegisterDomain($params) {
         } else {
             $data['registrant_companynumber'] = $params['additionalfields']['Registration Number'];
         }
-
-
     }
     // period is optional
-    if (isset ($params ["regperiod"]) && $regperiod > 0) {
+    if (isset($params ["regperiod"]) && $regperiod > 0) {
         $data ['period'] = $regperiod . "Y";
     }
     // create domain
@@ -1756,21 +1768,21 @@ function ibs_RegisterDomain($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
-    } else{
-        $values ["success"] =true;
+    } else {
+        $values ["success"] = true;
         //add here chaging date of next billing and next due date
     }
 
     if ($result ['product_0_status'] == 'FAILURE') {
-        if (isset ($values ["error"])) {
+        if (isset($values ["error"])) {
             $values ["error"] .= $result ['product_0_message'];
         } else {
             $values ["error"] = $result ['product_0_message'];
         }
     }
-    if (($result ['status'] == 'FAILURE' || $result ['product_0_status'] == 'FAILURE') && (!isset ($values ['error']) || empty ($values ['error']))) {
+    if (($result ['status'] == 'FAILURE' || $result ['product_0_status'] == 'FAILURE') && (!isset($values ['error']) || empty($values ['error']))) {
         $values ['error'] = 'Error: cannot register domain';
     }
 
@@ -1782,7 +1794,8 @@ function ibs_RegisterDomain($params) {
  * This function is called when a domain release is requested (eg. UK IPSTag Changes)
  * @param $params
  */
-function ibs_ReleaseDomain($params) {
+function ibs_ReleaseDomain($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -1807,7 +1820,7 @@ function ibs_ReleaseDomain($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
 
@@ -1820,7 +1833,8 @@ function ibs_ReleaseDomain($params) {
  * @param unknown_type $params
  * @return unknown
  */
-function ibs_TransferDomain($params) {
+function ibs_TransferDomain($params)
+{
     $params = ibs_get_utf8_parameters($params);
     $username = $params ["Username"];
     $password = $params ["Password"];
@@ -1904,7 +1918,7 @@ function ibs_TransferDomain($params) {
     }
 
     if ($tld == 'eu' || $tld == 'be' || $tld == 'uk') {
-        $data ['registrant_language'] = isset ($params ['Language']) ? $params ['Language'] : 'en';
+        $data ['registrant_language'] = isset($params ['Language']) ? $params ['Language'] : 'en';
     }
 
 
@@ -1979,11 +1993,11 @@ function ibs_TransferDomain($params) {
 
             if (strtolower($usDomainPurpose) == strtolower('Business use for profit')) {
                 $data['registrant_uspurpose'] = 'P1';
-            } else if (strtolower($usDomainPurpose) == strtolower('Educational purposes')) {
+            } elseif (strtolower($usDomainPurpose) == strtolower('Educational purposes')) {
                 $data['registrant_uspurpose'] = 'P4';
-            } else if (strtolower($usDomainPurpose) == strtolower('Personal Use')) {
+            } elseif (strtolower($usDomainPurpose) == strtolower('Personal Use')) {
                 $data['registrant_uspurpose'] = 'P3';
-            } else if (strtolower($usDomainPurpose) == strtolower('Government purposes')) {
+            } elseif (strtolower($usDomainPurpose) == strtolower('Government purposes')) {
                 $data['registrant_uspurpose'] = 'P5';
             } else {
                 $data['registrant_uspurpose'] = 'P2';
@@ -2008,30 +2022,29 @@ function ibs_TransferDomain($params) {
         $data ['registrant_dotASIACedLocality'] = $AdminCountry;
         $data ['registrant_dotasiacedentity'] = $params['additionalfields']['Legal Entity Type'];
         if ($data ['registrant_dotasiacedentity'] == 'other') {
-            $data ['registrant_dotasiacedentityother'] = isset ($params['additionalfields'] ['Other legal entity type']) ? $params['additionalfields']['Other legal entity type'] : 'otheridentity';
+            $data ['registrant_dotasiacedentityother'] = isset($params['additionalfields'] ['Other legal entity type']) ? $params['additionalfields']['Other legal entity type'] : 'otheridentity';
         }
         $data ['registrant_dotasiacedidform'] = $params['additionalfields'] ['Identification Form'];
         if ($data ['registrant_dotasiacedidform'] != 'other') {
             $data ['registrant_dotASIACedIdNumber'] = $params['additionalfields'] ['Identification Number'];
         }
         if ($data ['registrant_dotasiacedidform'] == 'other') {
-            $data ['registrant_dotasiacedidformother'] = isset ($params['additionalfields'] ['Other identification form']) ? $params['additionalfields'] ['Other identification form'] : 'otheridentity';
+            $data ['registrant_dotasiacedidformother'] = isset($params['additionalfields'] ['Other identification form']) ? $params['additionalfields'] ['Other identification form'] : 'otheridentity';
         }
     }
 
     if (in_array($tld, array('fr', 're', 'pm', 'tf', 'wf', 'yt'))) {
-
-        $holderType = isset ($params ['additionalfields']['Holder Type']) ? $params['additionalfields']['Holder Type'] : 'individual';
+        $holderType = isset($params ['additionalfields']['Holder Type']) ? $params['additionalfields']['Holder Type'] : 'individual';
 
         if ($tld == 'fr') {
-            $holderType = isset ($params ['additionalfields'] ['Holder Type']) ? $params ['additionalfields'] ['Holder Type'] : 'individual';
+            $holderType = isset($params ['additionalfields'] ['Holder Type']) ? $params ['additionalfields'] ['Holder Type'] : 'individual';
             //$data['admin_countrycode'] = 'FR';
             if ($data['admin_countrycode'] != 'FR') {
                 $values['error'] = "Registration failed. Administrator should be from France.";
                 return $values;
             }
-        } else if ($tld == 're') {
-            $holderType = isset ($params ['additionalfields'] ['Holder Type']) ? $params ['additionalfields'] ['Holder Type'] : 'other';
+        } elseif ($tld == 're') {
+            $holderType = isset($params ['additionalfields'] ['Holder Type']) ? $params ['additionalfields'] ['Holder Type'] : 'other';
             //$data['registrant_countrycode'] = 'RE';
             if ($data['registrant_countrycode'] = 'RE') {
                 $values['error'] = "Registration failed. Registrant should be from Reunion.";
@@ -2049,7 +2062,7 @@ function ibs_TransferDomain($params) {
         $data ['admin_dotfrcontactentitytype'] = $holderType;
 
         switch ($holderType) {
-            case 'individual' :
+            case 'individual':
                 $data ["registrant_dotfrcontactentitybirthdate"] = $params ['additionalfields'] ['Birth Date YYYY-MM-DD'];
                 $data ['registrant_dotfrcontactentitybirthplacecountrycode'] = $params ['additionalfields']['Birth Country Code'];
                 $data ['admin_dotfrcontactentitybirthdate'] = $params ['additionalfields'] ['Birth Date YYYY-MM-DD'];
@@ -2059,19 +2072,19 @@ function ibs_TransferDomain($params) {
                 $data ['admin_dotFRContactEntityBirthCity'] = $params ['additionalfields']['Birth City'];
                 $data ['admin_dotFRContactEntityBirthPlacePostalCode'] = $params ['additionalfields']['Birth Postal code'];
 
-                $data ['registrant_dotFRContactEntityRestrictedPublication'] = isset ($params ['additionalfields']['Restricted Publication']) ? 1 : 0;
-                $data ['admin_dotFRContactEntityRestrictedPublication'] = isset ($params ['additionalfields']['Restricted Publication']) ? 1 : 0;
+                $data ['registrant_dotFRContactEntityRestrictedPublication'] = isset($params ['additionalfields']['Restricted Publication']) ? 1 : 0;
+                $data ['admin_dotFRContactEntityRestrictedPublication'] = isset($params ['additionalfields']['Restricted Publication']) ? 1 : 0;
                 break;
-            case 'company' :
+            case 'company':
                 $data ['registrant_dotFRContactEntitySiren'] = $params ['additionalfields']['Siren'];
                 $data ['admin_dotFRContactEntitySiren'] = $params ['additionalfields']['Siren'];
                 break;
-            case 'trademark' :
+            case 'trademark':
                 $data ['registrant_dotFRContactEntityTradeMark'] = $params ['additionalfields']['Trade Mark'];
                 $data ['admin_dotFRContactEntityTradeMark'] = $params ['additionalfields']['Trade Mark'];
                 break;
-            case 'association' :
-                if (isset ($params ['Waldec'])) {
+            case 'association':
+                if (isset($params ['Waldec'])) {
                     $data ['registrant_dotFRContactEntityWaldec'] = $params ['additionalfields']['Waldec'];
                     $data ['admin_dotFRContactEntityWaldec'] = $params ['additionalfields']['Waldec'];
                 } else {
@@ -2086,13 +2099,13 @@ function ibs_TransferDomain($params) {
                 }
 
                 break;
-            case 'other' :
+            case 'other':
                 $data ['registrant_dotFROtherContactEntity'] = $params ['additionalfields']['Other Legal Status'];
                 $data ['admin_dotFROtherContactEntity'] = $params ['additionalfields']['Other Legal Status'];
-                if (isset ($params ['additionalfields']['Siren'])) {
+                if (isset($params ['additionalfields']['Siren'])) {
                     $data ['registrant_dotFRContactEntitySiren'] = $params ['additionalfields']['Siren'];
                     $data ['admin_dotFRContactEntitySiren'] = $params ['additionalfields']['Siren'];
-                } else if (isset ($params['additionalfields']['Trade Mark'])) {
+                } elseif (isset($params['additionalfields']['Trade Mark'])) {
                     $data ['registrant_dotFRContactEntityTradeMark'] = $params ['additionalfields']['Trade Mark'];
                     $data ['admin_dotFRContactEntityTradeMark'] = $params ['additionalfields']['Trade Mark'];
                 }
@@ -2141,7 +2154,6 @@ function ibs_TransferDomain($params) {
     }
 
     if ($tld == 'it') {
-
         $EUCountries = array('AT', 'BE', 'BG', 'CZ', 'CY', 'DE', 'DK', 'ES', 'EE', 'FI', 'FR', 'GR', 'GB', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SK', 'SI');
         $EntityTypes = array('1. Italian and foreign natural persons' => 1, '2. Companies/one man companies' => 2, '3. Freelance workers/professionals' => 3, '4. non-profit organizations' => 4, '5. public organizations' => 5, '6. other subjects' => 6, '7. foreigners who match 2 - 6' => 7);
         $legalEntityType = $params['additionalfields']['Legal Entity Type'];
@@ -2155,7 +2167,7 @@ function ibs_TransferDomain($params) {
             //we cannot fource the country code to be IT
             $data['registrant_countrycode'] = $params['country'];
             $data['registrant_dotitnationality'] = $nationality;
-        } else if ($et == 7) {
+        } elseif ($et == 7) {
             if (!in_array($data['registrant_countrycode'], $EUCountries)) {
                 //$data['registrant_countrycode']='FR';
                 $values['error'] = "Registration failed. Registrant should be from EU.";
@@ -2211,17 +2223,17 @@ function ibs_TransferDomain($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
     if ($result ['product_0_status'] == 'FAILURE') {
-        if (isset ($values ["error"])) {
+        if (isset($values ["error"])) {
             $values ["error"] .= $result ['product_0_message'];
         } else {
             $values ["error"] = $result ['product_0_message'];
         }
     }
-    if (($result ['status'] == 'FAILURE' || $result ['product_0_status'] == 'FAILURE') && (!isset ($values ['error']) || empty ($values ['error']))) {
+    if (($result ['status'] == 'FAILURE' || $result ['product_0_status'] == 'FAILURE') && (!isset($values ['error']) || empty($values ['error']))) {
         $values ['error'] = 'Error: cannot start transfer domain';
     }
 
@@ -2234,7 +2246,8 @@ function ibs_TransferDomain($params) {
  * @param array $params
  * @return array
  */
-function ibs_RenewDomain($params) {
+function ibs_RenewDomain($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -2246,7 +2259,6 @@ function ibs_RenewDomain($params) {
     if (!isset($params["domainname"])) {
         $domainName = $sld . '.' . $tld;
     } elseif (!isset($params["original"]["domainname"])) {
-
         $domainName = $params["domainname"];
     } else {
         $domainName = $params["original"]["domainname"];
@@ -2258,7 +2270,7 @@ function ibs_RenewDomain($params) {
     $data = array('apikey' => $username, 'password' => $password, 'domain' => $domainName);
 
     // period is optional
-    if (isset ($params ['regperiod']) && $regperiod > 0) {
+    if (isset($params ['regperiod']) && $regperiod > 0) {
         $data ['period'] = $regperiod . 'Y';
     }
 
@@ -2279,7 +2291,7 @@ function ibs_RenewDomain($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
 
@@ -2292,7 +2304,8 @@ function ibs_RenewDomain($params) {
  * @param array $params
  * @return array
  */
-function ibs_GetContactDetails($params) {
+function ibs_GetContactDetails($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -2303,7 +2316,6 @@ function ibs_GetContactDetails($params) {
     if (!isset($params["domainname"])) {
         $domainName = $sld . '.' . $tld;
     } elseif (!isset($params["original"]["domainname"])) {
-
         $domainName = $params["domainname"];
     } else {
         $domainName = $params["original"]["domainname"];
@@ -2318,7 +2330,7 @@ function ibs_GetContactDetails($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     } else {
         # Data should be returned in an array as follows
@@ -2373,7 +2385,8 @@ function ibs_GetContactDetails($params) {
  * @param array $params
  * @return array
  */
-function ibs_SaveContactDetails($params) {
+function ibs_SaveContactDetails($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -2464,7 +2477,6 @@ function ibs_SaveContactDetails($params) {
     if (!isset($params["domainname"])) {
         $domainName = $sld . '.' . $tld;
     } elseif (!isset($params["original"]["domainname"])) {
-
         $domainName = $params["domainname"];
     } else {
         $domainName = $params["original"]["domainname"];
@@ -2562,7 +2574,7 @@ function ibs_SaveContactDetails($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
     return $values;
@@ -2574,7 +2586,8 @@ function ibs_SaveContactDetails($params) {
  * @param array $params
  * @return array
  */
-function ibs_GetEPPCode($params) {
+function ibs_GetEPPCode($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -2602,7 +2615,7 @@ function ibs_GetEPPCode($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     } else {
         $values ["eppcode"] = $result ['transferauthinfo'];
@@ -2617,7 +2630,8 @@ function ibs_GetEPPCode($params) {
  * @param array $params
  * @return array
  */
-function ibs_RegisterNameserver($params) {
+function ibs_RegisterNameserver($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -2654,7 +2668,7 @@ function ibs_RegisterNameserver($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         if (isset($result["message"])) {
             $values ["error"] = $result ['message'];
         } else {
@@ -2670,7 +2684,8 @@ function ibs_RegisterNameserver($params) {
  * @param array $params
  * @return array
  */
-function ibs_ModifyNameserver($params) {
+function ibs_ModifyNameserver($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -2707,7 +2722,7 @@ function ibs_ModifyNameserver($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
 
@@ -2720,7 +2735,8 @@ function ibs_ModifyNameserver($params) {
  * @param array $params
  * @return array
  */
-function ibs_DeleteNameserver($params) {
+function ibs_DeleteNameserver($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -2755,25 +2771,27 @@ function ibs_DeleteNameserver($params) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     }
 
     return $values;
 }
 
-function ibs_mapCountry($countryCode) {
+function ibs_mapCountry($countryCode)
+{
 
     $mapc = array('US' => 1, 'CA' => 1, 'AI' => 1, 'AG' => 1, 'BB' => 1, 'BS' => 1, 'VG' => 1, 'VI' => 1, 'KY' => 1, 'BM' => 1, 'GD' => 1, 'TC' => 1, 'MS' => 1, 'MP' => 1, 'GU' => 1, 'LC' => 1, 'DM' => 1, 'VC' => 1, 'PR' => 1, 'DO' => 1, 'TT' => 1, 'KN' => 1, 'JM' => 1, 'EG' => 20, 'MA' => 212, 'DZ' => 213, 'TN' => 216, 'LY' => 218, 'GM' => 220, 'SN' => 221, 'MR' => 222, 'ML' => 223, 'GN' => 224, 'CI' => 225, 'BF' => 226, 'NE' => 227, 'TG' => 228, 'BJ' => 229, 'MU' => 230, 'LR' => 231, 'SL' => 232, 'GH' => 233, 'NG' => 234, 'TD' => 235, 'CF' => 236, 'CM' => 237, 'CV' => 238, 'ST' => 239, 'GQ' => 240, 'GA' => 241, 'CG' => 242, 'CD' => 243, 'AO' => 244, 'GW' => 245, 'IO' => 246, 'AC' => 247, 'SC' => 248, 'SD' => 249, 'RW' => 250, 'ET' => 251, 'SO' => 252, 'DJ' => 253, 'KE' => 254, 'TZ' => 255, 'UG' => 256, 'BI' => 257, 'MZ' => 258, 'ZM' => 260, 'MG' => 261, 'RE' => 262, 'ZW' => 263, 'NA' => 264, 'MW' => 265, 'LS' => 266, 'BW' => 267, 'SZ' => 268, 'KM' => 269, 'YT' => 269, 'ZA' => 27, 'SH' => 290, 'ER' => 291, 'AW' => 297, 'FO' => 298, 'GL' => 299, 'GR' => 30, 'NL' => 31, 'BE' => 32, 'FR' => 33, 'ES' => 34, 'GI' => 350, 'PT' => 351, 'LU' => 352, 'IE' => 353, 'IS' => 354, 'AL' => 355, 'MT' => 356, 'CY' => 357, 'FI' => 358, 'BG' => 359, 'HU' => 36, 'LT' => 370, 'LV' => 371, 'EE' => 372, 'MD' => 373, 'AM' => 374, 'BY' => 375, 'AD' => 376, 'MC' => 377, 'SM' => 378, 'VA' => 379, 'UA' => 380, 'CS' => 381, 'YU' => 381, 'HR' => 385, 'SI' => 386, 'BA' => 387, 'EU' => 388, 'MK' => 389, 'IT' => 39, 'RO' => 40, 'CH' => 41, 'CZ' => 420, 'SK' => 421, 'LI' => 423, 'AT' => 43, 'GB' => 44, 'DK' => 45, 'SE' => 46, 'NO' => 47, 'PL' => 48, 'DE' => 49, 'FK' => 500, 'BZ' => 501, 'GT' => 502, 'SV' => 503, 'HN' => 504, 'NI' => 505, 'CR' => 506, 'PA' => 507, 'PM' => 508, 'HT' => 509, 'PE' => 51, 'MX' => 52, 'CU' => 53, 'AR' => 54, 'BR' => 55, 'CL' => 56, 'CO' => 57, 'VE' => 58, 'GP' => 590, 'BO' => 591, 'GY' => 592, 'EC' => 593, 'GF' => 594, 'PY' => 595, 'MQ' => 596, 'SR' => 597, 'UY' => 598, 'AN' => 599, 'MY' => 60, 'AU' => 61, 'CC' => 61, 'CX' => 61, 'ID' => 62, 'PH' => 63, 'NZ' => 64, 'SG' => 65, 'TH' => 66, 'TL' => 670, 'AQ' => 672, 'NF' => 672, 'BN' => 673, 'NR' => 674, 'PG' => 675, 'TO' => 676, 'SB' => 677, 'VU' => 678, 'FJ' => 679, 'PW' => 680, 'WF' => 681, 'CK' => 682, 'NU' => 683, 'AS' => 684, 'WS' => 685, 'KI' => 686, 'NC' => 687, 'TV' => 688, 'PF' => 689, 'TK' => 690, 'FM' => 691, 'MH' => 692, 'RU' => 7, 'KZ' => 7, 'XF' => 800, 'XC' => 808, 'JP' => 81, 'KR' => 82, 'VN' => 84, 'KP' => 850, 'HK' => 852, 'MO' => 853, 'KH' => 855, 'LA' => 856, 'CN' => 86, 'XS' => 870, 'XE' => 871, 'XP' => 872, 'XI' => 873, 'XW' => 874, 'XU' => 878, 'BD' => 880, 'XG' => 881, 'XN' => 882, 'TW' => 886, 'TR' => 90, 'IN' => 91, 'PK' => 92, 'AF' => 93, 'LK' => 94, 'MM' => 95, 'MV' => 960, 'LB' => 961, 'JO' => 962, 'SY' => 963, 'IQ' => 964, 'KW' => 965, 'SA' => 966, 'YE' => 967, 'OM' => 968, 'PS' => 970, 'AE' => 971, 'IL' => 972, 'BH' => 973, 'QA' => 974, 'BT' => 975, 'MN' => 976, 'NP' => 977, 'XR' => 979, 'IR' => 98, 'XT' => 991, 'TJ' => 992, 'TM' => 993, 'AZ' => 994, 'GE' => 995, 'KG' => 996, 'UZ' => 998);
 
-    if (isset ($mapc [$countryCode])) {
+    if (isset($mapc [$countryCode])) {
         return ($mapc [$countryCode]);
     } else {
         return (1);
     }
 }
 
-function ibs_mapCountryCode($countryCode) {
+function ibs_mapCountryCode($countryCode)
+{
     $mapc = array('US' => 1, 'CA' => 1, 'AI' => 1, 'AG' => 1, 'BB' => 1, 'BS' => 1, 'VG' => 1, 'VI' => 1, 'KY' => 1, 'BM' => 1, 'GD' => 1, 'TC' => 1, 'MS' => 1, 'MP' => 1, 'GU' => 1, 'LC' => 1, 'DM' => 1, 'VC' => 1, 'PR' => 1, 'DO' => 1, 'TT' => 1, 'KN' => 1, 'JM' => 1, 'EG' => 20, 'MA' => 212, 'DZ' => 213, 'TN' => 216, 'LY' => 218, 'GM' => 220, 'SN' => 221, 'MR' => 222, 'ML' => 223, 'GN' => 224, 'CI' => 225, 'BF' => 226, 'NE' => 227, 'TG' => 228, 'BJ' => 229, 'MU' => 230, 'LR' => 231, 'SL' => 232, 'GH' => 233, 'NG' => 234, 'TD' => 235, 'CF' => 236, 'CM' => 237, 'CV' => 238, 'ST' => 239, 'GQ' => 240, 'GA' => 241, 'CG' => 242, 'CD' => 243, 'AO' => 244, 'GW' => 245, 'IO' => 246, 'AC' => 247, 'SC' => 248, 'SD' => 249, 'RW' => 250, 'ET' => 251, 'SO' => 252, 'DJ' => 253, 'KE' => 254, 'TZ' => 255, 'UG' => 256, 'BI' => 257, 'MZ' => 258, 'ZM' => 260, 'MG' => 261, 'RE' => 262, 'ZW' => 263, 'NA' => 264, 'MW' => 265, 'LS' => 266, 'BW' => 267, 'SZ' => 268, 'KM' => 269, 'YT' => 269, 'ZA' => 27, 'SH' => 290, 'ER' => 291, 'AW' => 297, 'FO' => 298, 'GL' => 299, 'GR' => 30, 'NL' => 31, 'BE' => 32, 'FR' => 33, 'ES' => 34, 'GI' => 350, 'PT' => 351, 'LU' => 352, 'IE' => 353, 'IS' => 354, 'AL' => 355, 'MT' => 356, 'CY' => 357, 'FI' => 358, 'BG' => 359, 'HU' => 36, 'LT' => 370, 'LV' => 371, 'EE' => 372, 'MD' => 373, 'AM' => 374, 'BY' => 375, 'AD' => 376, 'MC' => 377, 'SM' => 378, 'VA' => 379, 'UA' => 380, 'CS' => 381, 'YU' => 381, 'HR' => 385, 'SI' => 386, 'BA' => 387, 'EU' => 388, 'MK' => 389, 'IT' => 39, 'RO' => 40, 'CH' => 41, 'CZ' => 420, 'SK' => 421, 'LI' => 423, 'AT' => 43, 'GB' => 44, 'DK' => 45, 'SE' => 46, 'NO' => 47, 'PL' => 48, 'DE' => 49, 'FK' => 500, 'BZ' => 501, 'GT' => 502, 'SV' => 503, 'HN' => 504, 'NI' => 505, 'CR' => 506, 'PA' => 507, 'PM' => 508, 'HT' => 509, 'PE' => 51, 'MX' => 52, 'CU' => 53, 'AR' => 54, 'BR' => 55, 'CL' => 56, 'CO' => 57, 'VE' => 58, 'GP' => 590, 'BO' => 591, 'GY' => 592, 'EC' => 593, 'GF' => 594, 'PY' => 595, 'MQ' => 596, 'SR' => 597, 'UY' => 598, 'AN' => 599, 'MY' => 60, 'AU' => 61, 'CC' => 61, 'CX' => 61, 'ID' => 62, 'PH' => 63, 'NZ' => 64, 'SG' => 65, 'TH' => 66, 'TL' => 670, 'AQ' => 672, 'NF' => 672, 'BN' => 673, 'NR' => 674, 'PG' => 675, 'TO' => 676, 'SB' => 677, 'VU' => 678, 'FJ' => 679, 'PW' => 680, 'WF' => 681, 'CK' => 682, 'NU' => 683, 'AS' => 684, 'WS' => 685, 'KI' => 686, 'NC' => 687, 'TV' => 688, 'PF' => 689, 'TK' => 690, 'FM' => 691, 'MH' => 692, 'RU' => 7, 'KZ' => 7, 'XF' => 800, 'XC' => 808, 'JP' => 81, 'KR' => 82, 'VN' => 84, 'KP' => 850, 'HK' => 852, 'MO' => 853, 'KH' => 855, 'LA' => 856, 'CN' => 86, 'XS' => 870, 'XE' => 871, 'XP' => 872, 'XI' => 873, 'XW' => 874, 'XU' => 878, 'BD' => 880, 'XG' => 881, 'XN' => 882, 'TW' => 886, 'TR' => 90, 'IN' => 91, 'PK' => 92, 'AF' => 93, 'LK' => 94, 'MM' => 95, 'MV' => 960, 'LB' => 961, 'JO' => 962, 'SY' => 963, 'IQ' => 964, 'KW' => 965, 'SA' => 966, 'YE' => 967, 'OM' => 968, 'PS' => 970, 'AE' => 971, 'IL' => 972, 'BH' => 973, 'QA' => 974, 'BT' => 975, 'MN' => 976, 'NP' => 977, 'XR' => 979, 'IR' => 98, 'XT' => 991, 'TJ' => 992, 'TM' => 993, 'AZ' => 994, 'GE' => 995, 'KG' => 996, 'UZ' => 998);
 
     if (in_array($countryCode, $mapc)) {
@@ -2783,24 +2801,26 @@ function ibs_mapCountryCode($countryCode) {
     }
 }
 
-function ibs_chekPhone($phoneNumber) {
+function ibs_chekPhone($phoneNumber)
+{
     $phoneNumber = str_replace(" ", "", $phoneNumber);
     $phoneNumber = str_replace("\t", "", $phoneNumber);
 
     return (bool)preg_match('/^\+[0-9]{1,4}\.[0-9 ]+$/is', $phoneNumber);
 }
 
-function ibs_reformatPhone($phoneNumber, $countryCode) {
+function ibs_reformatPhone($phoneNumber, $countryCode)
+{
 //check if phoneNumber has more than 10 characters, get last 10 characters and use characters before it as country code.
-    /*	if(strlen($phoneNumber) > 10 && count(explode('.',$phoneNumber)) <= 1){
-		$inputPhone = substr($phoneNumber, 0, strlen($phoneNumber)-10);
-		$icountryCode = $inputPhone;
-		//*If country code exist, use it otherwise return as it is
-		if(ibs_mapCountryCode($icountryCode)){
-			$phoneNumber = substr($phoneNumber, strlen($phoneNumber) - 10);
-			$phoneNumber = '+' . $icountryCode.".".$phoneNumber;
-		}
-	}
+    /*  if(strlen($phoneNumber) > 10 && count(explode('.',$phoneNumber)) <= 1){
+        $inputPhone = substr($phoneNumber, 0, strlen($phoneNumber)-10);
+        $icountryCode = $inputPhone;
+        //*If country code exist, use it otherwise return as it is
+        if(ibs_mapCountryCode($icountryCode)){
+            $phoneNumber = substr($phoneNumber, strlen($phoneNumber) - 10);
+            $phoneNumber = '+' . $icountryCode.".".$phoneNumber;
+        }
+    }
 */
     $countryPhoneCode = ibs_mapCountry($countryCode);
     $plus = 0;
@@ -2824,8 +2844,9 @@ function ibs_reformatPhone($phoneNumber, $countryCode) {
     $scontrol = preg_replace('#\D*#si', "", $scontrol);
 
     /*if original phone number has + sign, add it again*/
-    if ($plus)
+    if ($plus) {
         $scontrol = "+" . $scontrol;
+    }
 
     /* If empty phone number, return as it is*/
     if (!$l) {
@@ -2863,17 +2884,14 @@ function ibs_reformatPhone($phoneNumber, $countryCode) {
         $countryCodeLength = strlen($countryPhoneCode);
 
         if (substr($phoneNumber, 0, $countryCodeLength) == $countryPhoneCode) {
-
             $myPhoneNumber = substr($phoneNumber, $countryCodeLength);
             $myPhoneNumber = preg_replace("/[^0-9,.]/", "", $myPhoneNumber);
             $rphone = '+' . $countryPhoneCode . '.' . $myPhoneNumber;
-
         }
 
         //New code End here  *********************************************************
         return $rphone;
     } else {
-
         //New code Start here *******************************************************
 
         $countryCodeLength = strlen($countryPhoneCode);
@@ -2891,34 +2909,40 @@ function ibs_reformatPhone($phoneNumber, $countryCode) {
 }
 
 
-function ibs_get_utf8_parameters($params) {
+function ibs_get_utf8_parameters($params)
+{
     $config = array();
     $result = full_query("SELECT setting, value FROM tblconfiguration;");
     while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $config[strtolower($row['setting'])] = $row['value'];
     }
-    if ((strtolower($config["charset"]) != "utf-8") && (strtolower($config["charset"]) != "utf8"))
+    if ((strtolower($config["charset"]) != "utf-8") && (strtolower($config["charset"]) != "utf8")) {
         return $params;
+    }
 
     $result = full_query("SELECT orderid FROM tbldomains WHERE id='" . mysql_real_escape_string($params["domainid"]) . "' LIMIT 1;");
-    if (!($row = mysql_fetch_array($result, MYSQL_ASSOC)))
+    if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
         return $params;
+    }
 
     $result = full_query("SELECT userid,contactid FROM tblorders WHERE id='" . mysql_real_escape_string($row['orderid']) . "' LIMIT 1;");
-    if (!($row = mysql_fetch_array($result, MYSQL_ASSOC)))
+    if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
         return $params;
+    }
 
     if ($row['contactid']) {
         $result = full_query("SELECT firstname, lastname, companyname, email, address1, address2, city, state, postcode, country, phonenumber FROM tblcontacts WHERE id='" . mysql_real_escape_string($row['contactid']) . "' LIMIT 1;");
-        if (!($row = mysql_fetch_array($result, MYSQL_ASSOC)))
+        if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
             return $params;
+        }
         foreach ($row as $key => $value) {
             $params[$key] = html_entity_decode($value);
         }
     } elseif ($row['userid']) {
         $result = full_query("SELECT firstname, lastname, companyname, email, address1, address2, city, state, postcode, country, phonenumber FROM tblclients WHERE id='" . mysql_real_escape_string($row['userid']) . "' LIMIT 1;");
-        if (!($row = mysql_fetch_array($result, MYSQL_ASSOC)))
+        if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
             return $params;
+        }
         foreach ($row as $key => $value) {
             $params[$key] = html_entity_decode($value);
         }
@@ -2969,11 +2993,13 @@ function ibs_get_utf8_parameters($params) {
     return $country[$countryName];
 }*/
 
-function ibs_getClientIp() {
+function ibs_getClientIp()
+{
     return (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null));
 }
 
-function ibs_get2CharDotITProvinceCode($province) {
+function ibs_get2CharDotITProvinceCode($province)
+{
 
     $provinceFiltered = trim($province);
 
@@ -3146,10 +3172,10 @@ function ibs_get2CharDotITProvinceCode($province) {
 
         return $province;
     }
-
 }
 
-function ibs_getItProvinceCode($inputElementValue) {
+function ibs_getItProvinceCode($inputElementValue)
+{
 
     $code = 'RM';
 
@@ -3162,23 +3188,24 @@ function ibs_getItProvinceCode($inputElementValue) {
     return $code;
 }
 
-function ibs_GetDomainSuggestions($params){
+function ibs_GetDomainSuggestions($params)
+{
     return new ResultsList();
 }
 
-function ibs_CheckAvailability($params) {
+function ibs_CheckAvailability($params)
+{
     $tlds = $params['tldsToInclude'];
     $results = new ResultsList();
 
     foreach ($tlds as $tld) {
-
         $params["domainname"] = $params["searchTerm"] . $tld;
         $res = ibs_domainCheck($params);
         $sld = $params["searchTerm"];//$params ["sld"];
         $result = new SearchResult($sld, $tld);
         if ($res['status'] === 'AVAILABLE') {
             $result->setStatus(SearchResult::STATUS_NOT_REGISTERED);
-            if($res['price_ispremium']=='YES'){
+            if ($res['price_ispremium'] == 'YES') {
                 $result->setPremiumDomain(true);
                 $result->setPremiumCostPricing(
                     array(
@@ -3188,19 +3215,18 @@ function ibs_CheckAvailability($params) {
                     )
                 );
             }
-        } elseif(isset($res ["error"])){
+        } elseif (isset($res ["error"])) {
             $result->setStatus(SearchResult::STATUS_TLD_NOT_SUPPORTED);
         } else {
             $result->setStatus(SearchResult::STATUS_REGISTERED);
         }
         $results->Append($result);
-
     }
     return $results;
-
 }
 
-function ibs_domainCheck($params) {
+function ibs_domainCheck($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -3217,13 +3243,13 @@ function ibs_domainCheck($params) {
     $apiServerUrl = ($testmode == "on") ? API_TESTSERVER_URL : API_SERVER_URL;
     $commandUrl = $apiServerUrl . 'Domain/Check';
 
-    $data = array('apikey' => $username, 'password' => $password, 'domain' => $domainName,'currency'=>'USD');
+    $data = array('apikey' => $username, 'password' => $password, 'domain' => $domainName,'currency' => 'USD');
     $result = ibs_runCommand($commandUrl, $data);
     $errorMessage = ibs_getLastError();
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     } else {
         $values = $result;
@@ -3232,7 +3258,8 @@ function ibs_domainCheck($params) {
 }
 
 /* Custom function for email verification*/
-function ibs_verify($params) {
+function ibs_verify($params)
+{
     $domainid = $params["domainid"];
     $data = ibs_getEmailVerificationDetails($params);
     $email = $data["email"];
@@ -3248,7 +3275,8 @@ function ibs_verify($params) {
     );
 }
 
-function ibs_getEmailVerificationDetails($params) {
+function ibs_getEmailVerificationDetails($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -3271,7 +3299,7 @@ function ibs_getEmailVerificationDetails($params) {
     $errorMessage = ibs_getLastError();
     if ($result == false) {
         $values["error"] = ibs_getconnectionErrorMessage($errorMessage);
-    } else if ($result['status'] == "FAILURE") {
+    } elseif ($result['status'] == "FAILURE") {
         $values ["error"] = $result ["message"];
     } else {
         $values = $result;
@@ -3280,11 +3308,11 @@ function ibs_getEmailVerificationDetails($params) {
         //}
     }
     return $values;
-
 }
 
 /* Custom function for email verification*/
-function ibs_send($params) {
+function ibs_send($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -3310,9 +3338,9 @@ function ibs_send($params) {
         if (empty($errrormessage)) {
             $errormessage = "Due to some technical reason email cannot be sent.";
         }
-    } else if ($result['status'] == "FAILURE") {
+    } elseif ($result['status'] == "FAILURE") {
         $errormessage = $result ["message"];
-    } else if ($result['status'] == "SUCCESS") {
+    } elseif ($result['status'] == "SUCCESS") {
         $values = $result;
         $operation = $values["operation"];
         $successmessage = "Verification email has been " . $operation . ". Please check your mail box within a couple of minutes. Make sure you also check the spam folder.";
@@ -3332,7 +3360,8 @@ function ibs_send($params) {
 }
 
 /*Custom Url Forwarding*/
-function ibs_domainurlforwarding($params) {
+function ibs_domainurlforwarding($params)
+{
     $domainid = $params['domainid'];
     $tld = $params ["tld"];
     $sld = $params ["sld"];
@@ -3348,12 +3377,11 @@ function ibs_domainurlforwarding($params) {
     $data = ibs_GetUrlForwarding($params);
     if (isset($_POST) && count($_POST) > 0) {
         for ($i = 0, $iMax = count($data); $i < $iMax; $i++) {
-            $params["source"] = trim(trim($data[$i]["hostname"]," .") . "." . $domainName," .");
+            $params["source"] = trim(trim($data[$i]["hostname"], " .") . "." . $domainName, " .");
             $result = ibs_RemoveUrlForwarding($params);
         }
 
         for ($i = 0, $iMax = count($_POST["dnsrecordaddress"]); $i < $iMax; $i++) {
-
             $params["hostName"] = $_POST["dnsrecordhost"][$i];
             $params["type"] = $_POST["dnsrecordtype"][$i];
             $params["address"] = $_POST["dnsrecordaddress"][$i];
@@ -3379,7 +3407,8 @@ function ibs_domainurlforwarding($params) {
 }
 
 
-function ibs_GetUrlForwarding($params) {
+function ibs_GetUrlForwarding($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -3393,16 +3422,16 @@ function ibs_GetUrlForwarding($params) {
 
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result['status'] == "FAILURE") {
+    } elseif ($result['status'] == "FAILURE") {
         $errormessage = $result ["message"];
     } else {
-        $totalRecords = ( int )$result ['total_rules'];
+        $totalRecords = (int)$result ['total_rules'];
         for ($i = 1; $i <= $totalRecords; $i++) {
             $recordType = '';
-            if (isset ($result ['rule_' . $i . '_isframed'])) {
+            if (isset($result ['rule_' . $i . '_isframed'])) {
                 $recordType = trim($result ['rule_' . $i . '_isframed']) == 'YES' ? "FRAME" : 'URL';
             }
-            if (isset ($result ['rule_' . $i . '_source'])) {
+            if (isset($result ['rule_' . $i . '_source'])) {
                 $recordHostname = $result ['rule_' . $i . '_source'];
 
                 $dParts = explode('.', $domainName);
@@ -3412,10 +3441,10 @@ function ibs_GetUrlForwarding($params) {
                     $recordHostname .= (empty($recordHostname) ? '' : '.') . $hParts[$j];
                 }
             }
-            if (isset ($result ['rule_' . $i . '_destination'])) {
+            if (isset($result ['rule_' . $i . '_destination'])) {
                 $recordAddress = $result ['rule_' . $i . '_destination'];
             }
-            if (isset ($result ['rule_' . $i . '_source'])) {
+            if (isset($result ['rule_' . $i . '_source'])) {
                 $hostrecords [] = array("hostname" => $recordHostname, "type" => $recordType, "address" => htmlspecialchars($recordAddress));
             }
         }
@@ -3423,7 +3452,8 @@ function ibs_GetUrlForwarding($params) {
     return (count($hostrecords) ? $hostrecords : $values);
 }
 
-function ibs_SaveUrlForwarding($params) {
+function ibs_SaveUrlForwarding($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -3433,17 +3463,19 @@ function ibs_SaveUrlForwarding($params) {
     $commandUrl = $apiServerUrl . "Domain/UrlForward/Add";
 
     $data = array('apikey' => $username, 'password' => $password);
-    $data['source'] = trim(trim($params["hostName"], ". ") . "." . $domainName,'.');
+    $data['source'] = trim(trim($params["hostName"], ". ") . "." . $domainName, '.');
     $data ['isFramed'] = $params["type"] == 'FRAME' ? 'YES' : 'NO';
     $destination = trim($params["address"], " .");
     $data ['Destination'] = $destination;
-    if(empty($destination)) return false;
+    if (empty($destination)) {
+        return false;
+    }
     $result = ibs_runCommand($commandUrl, $data);
     $errorMessage = ibs_getLastError();
-    $errorMessages='';
+    $errorMessages = '';
     if ($result === false) {
         $errorMessages .= ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result['status'] == "FAILURE") {
+    } elseif ($result['status'] == "FAILURE") {
         $errorMessages .= $result ["message"];
     }
     if ($errorMessages) {
@@ -3453,7 +3485,8 @@ function ibs_SaveUrlForwarding($params) {
     }
 }
 
-function ibs_RemoveUrlForwarding($params) {
+function ibs_RemoveUrlForwarding($params)
+{
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -3465,11 +3498,11 @@ function ibs_RemoveUrlForwarding($params) {
     $data = array('apikey' => $username, 'password' => $password);
     $data ["source"] = $params["source"];
     $result = ibs_runCommand($commandUrl, $data);
-    $errorMessages='';
+    $errorMessages = '';
     $errorMessage = ibs_getLastError();
     if ($result === false) {
         $errorMessages .= ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result['status'] == "FAILURE") {
+    } elseif ($result['status'] == "FAILURE") {
         $errorMessages .= $result ["message"];
     }
     if ($errorMessages) {
@@ -3480,7 +3513,8 @@ function ibs_RemoveUrlForwarding($params) {
 }
 
 
-function ibs_GetTldPricing(array $params){
+function ibs_GetTldPricing(array $params)
+{
 
     $username = $params ["Username"];
     $password = $params ["Password"];
@@ -3488,38 +3522,38 @@ function ibs_GetTldPricing(array $params){
     $apiServerUrl = ($testmode == "on") ? API_TESTSERVER_URL : API_SERVER_URL;
     $commandUrl = $apiServerUrl . "/Account/PriceList/Get";
 
-    $data = array('apikey' => $username, 'password' => $password,"version"=>'5');
+    $data = array('apikey' => $username, 'password' => $password,"version" => '5');
     $r = ibs_runCommand($commandUrl, $data);
-    ibs_debugLog(array("action"=>"raw response", "requestParam"=>"","responseParam"=>$r));
-    $i=0;
-    $extensionData=array();
-    while($r['product_'.$i.'_tld']){
-        list($tld,$product)=explode(' ',$r['product_'.$i.'_name']);
-        $tld=$r['product_'.$i.'_tld'];
-        if(!$extensionData[$tld]){
-            $extensionData[$tld]=array();
+    ibs_debugLog(array("action" => "raw response", "requestParam" => "","responseParam" => $r));
+    $i = 0;
+    $extensionData = array();
+    while ($r['product_' . $i . '_tld']) {
+        list($tld,$product) = explode(' ', $r['product_' . $i . '_name']);
+        $tld = $r['product_' . $i . '_tld'];
+        if (!$extensionData[$tld]) {
+            $extensionData[$tld] = array();
         }
-        $extensionData[$tld]['currencyCode']= $r['product_' . $i . '_currency'];
-        $extensionData[$tld]['registrationPrice']= $r['product_' . $i . '_registration'];
-        $extensionData[$tld]['renewalPrice']= $r['product_' . $i . '_renewal'];
-        $extensionData[$tld]['transferPrice']= $r['product_' . $i . '_transfer'];
-        $extensionData[$tld]['redemptionFee']= $r['product_' . $i . '_restore'];
-        $extensionData[$tld]['redemptionDays']= ((int)trim($r['product_' . $i . '_rgp'])) /24;
-        $extensionData[$tld]['transferSecretRequired']= (strtolower($r['product_' . $i . '_authinforequired'])==='yes');
-        $extensionData[$tld]['minPeriod']= $r['product_' . $i . '_minperiod'];
-        $extensionData[$tld]['maxPeriod']= $r['product_' . $i . '_maxperiod'];
-        $extensionData[$tld]['inc']= $r['product_' . $i . '_inc'];
+        $extensionData[$tld]['currencyCode'] = $r['product_' . $i . '_currency'];
+        $extensionData[$tld]['registrationPrice'] = $r['product_' . $i . '_registration'];
+        $extensionData[$tld]['renewalPrice'] = $r['product_' . $i . '_renewal'];
+        $extensionData[$tld]['transferPrice'] = $r['product_' . $i . '_transfer'];
+        $extensionData[$tld]['redemptionFee'] = $r['product_' . $i . '_restore'];
+        $extensionData[$tld]['redemptionDays'] = ((int)trim($r['product_' . $i . '_rgp'])) / 24;
+        $extensionData[$tld]['transferSecretRequired'] = (strtolower($r['product_' . $i . '_authinforequired']) === 'yes');
+        $extensionData[$tld]['minPeriod'] = $r['product_' . $i . '_minperiod'];
+        $extensionData[$tld]['maxPeriod'] = $r['product_' . $i . '_maxperiod'];
+        $extensionData[$tld]['inc'] = $r['product_' . $i . '_inc'];
         $i++;
     }
     // Perform API call to retrieve extension information
     // A connection error should return a simple array with error key and message
     // return ['error' => 'This error occurred',];
 
-    $results = new ResultsList;
-    ibs_debugLog(array("action"=>"parsed data", "requestParam"=>"","responseParam"=>$extensionData));
-    foreach ($extensionData as $tld=>$extension) {
+    $results = new ResultsList();
+    ibs_debugLog(array("action" => "parsed data", "requestParam" => "","responseParam" => $extensionData));
+    foreach ($extensionData as $tld => $extension) {
         // All the set methods can be chained and utilised together.
-        $item = (new ImportItem)
+        $item = (new ImportItem())
             ->setExtension($tld)
             ->setMinYears($extension['minPeriod'])
             ->setMaxYears($extension['maxPeriod'])
@@ -3537,7 +3571,8 @@ function ibs_GetTldPricing(array $params){
 }
 
 /*Get TMCH details*/
-function ibs_TmchInfo($lookupkey) {
+function ibs_TmchInfo($lookupkey)
+{
     $params = ibs_getapiDetails();
 
     $username = $params ["Username"];
@@ -3562,7 +3597,7 @@ function ibs_TmchInfo($lookupkey) {
     # If error, return the error message in the value below
     if ($result === false) {
         $values ["error"] = ibs_getConnectionErrorMessage($errorMessage);
-    } else if ($result ['status'] == 'FAILURE') {
+    } elseif ($result ['status'] == 'FAILURE') {
         $values ["error"] = $result ['message'];
     } else {
         $values = $result;
@@ -3571,7 +3606,8 @@ function ibs_TmchInfo($lookupkey) {
 }
 
 /*Get Registrar details*/
-function ibs_getapiDetails() {
+function ibs_getapiDetails()
+{
     //Get Admin Detail
     $table = "tbladmins";
     $fields = "id";
@@ -3586,22 +3622,16 @@ function ibs_getapiDetails() {
     $result = select_query($table, $fields, $where);
     while ($response = mysql_fetch_array($result)) {
         if ($response['setting'] == "Password") {
-
-
             $response = ibs_decryptData($response['value'], $adminId);
 
             $params["Password"] = $response['password'];
         }
         if ($response['setting'] == "Username") {
-
-
             $response = ibs_decryptData($response['value'], $adminId);
 
             $params["Username"] = $response['password'];
         }
         if ($response['setting'] == "TestMode") {
-
-
             $response = ibs_decryptData($response['value'], $adminId);
 
             $params["TestMode"] = $response['password'];
@@ -3611,11 +3641,10 @@ function ibs_getapiDetails() {
 }
 
 /* Decrypt WHMCS encrypted details */
-function ibs_decryptData($input, $admin) {
+function ibs_decryptData($input, $admin)
+{
     $command = 'decryptpassword';
     $values['password2'] = $input;
     $response = localAPI($command, $values, $admin);
     return $response;
 }
-
-
