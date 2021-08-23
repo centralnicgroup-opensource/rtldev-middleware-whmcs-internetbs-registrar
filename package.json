@@ -50,6 +50,7 @@
     "semantic-release": "^17.3.7"
   },
   "scripts": {
-    "codeFix": "gulp lint"
+    "codeCheck": "phpcs --standard=PSR12 -q -n --colors --ignore=node_modules,vendor,templates_c .",
+    "codeFix": "phpcbf --standard=PSR12 -q --ignore=node_modules,vendor,templates_c ."
   }
 }

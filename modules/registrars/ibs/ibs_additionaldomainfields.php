@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************
 IMPORTANT IF YOU INTEND TO MAKE CHANGES IN THIS FILE
 The entries in this file are like this (taking as example one option for .fr domains but all others are similar):
@@ -30,21 +31,19 @@ NOTE: Translation only works with WHMCS 4.5 and above!
 
 ************************************************************/
 
-
-
 /*
   If you intend to register .uk domains using this module make sure that the following exists in your includes/additionaldomainfields.php file,
   if not exists then add the following at the end of the file includes/additionaldomainfields.php
  */
 /* * ************* START .UK ****************** */
-$additionaldomainfields[".co.uk"]=array();
+$additionaldomainfields[".co.uk"] = array();
 $additionaldomainfields[".co.uk"]['legaltype'] = array(
     "Name" => "Legal Type",
     "DisplayName" => "Legal Type",
     "Type" => "dropdown",
     "Options" => "IND|Individual,LTD|UK Limited Company,PLC|UK Public Limited Company,PTNR|UK Partnership,LLP|UK Limited Liability Partnership,STRA|Sole Trader,IP|Industrial/Provident Registered Company,SCH|UK School,RCHAR|UK Registered Charity,GOV|Government Body, CRC|Corporation By Royal Charter,STAT|Uk Statutory Body,OTHER|UK Entity (other),FIND|Non-UK Individual,FCORP|Non-Uk Corporation,FOTHER|Other foreign entity",
     "Default" => "Individual",
-	"LangVar" => "ukLegalType",
+    "LangVar" => "ukLegalType",
 );
 # the following is NOT required when "Legal Type" is "Individual"
 $additionaldomainfields[".co.uk"]['registrationnumber'] = array(
@@ -54,14 +53,14 @@ $additionaldomainfields[".co.uk"]['registrationnumber'] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "ukRegistrationNumber",
+    "LangVar" => "ukRegistrationNumber",
 );
 # the following is required only when "Legal Type" is "Individual"
 $additionaldomainfields[".co.uk"]["hidewhois"] = array(
     "Name" => "WHOIS Opt-out",
     "DisplayName" => "Hide whois details",
     "Type" => "tickbox",
-	"LangVar" => "ukhidewhois",
+    "LangVar" => "ukhidewhois",
 );
 
 $additionaldomainfields[".org.uk"] = $additionaldomainfields[".co.uk"];
@@ -76,7 +75,7 @@ $additionaldomainfields[".uk"] = $additionaldomainfields[".co.uk"];
   if not exists then add the following at the end of the file includes/additionaldomainfields.php
  */
 /* * ************* START .EU ****************** */
-$additionaldomainfields[".eu"]=array();
+$additionaldomainfields[".eu"] = array();
 $additionaldomainfields[".eu"][] = array(
     "Name" => "Language",
     "DisplayName" => "Language",
@@ -88,7 +87,7 @@ $additionaldomainfields[".eu"][] = array(
 /* * ************* END .EU ****************** */
 
 /* * ************* START .BE ****************** */
-$additionaldomainfields[".be"]=array();
+$additionaldomainfields[".be"] = array();
 $additionaldomainfields[".be"][] = array(
     "Name" => "Language",
     "DisplayName" => "Language",
@@ -105,7 +104,7 @@ $additionaldomainfields[".be"][] = array(
  */
 
 /* * ************* START .ASIA ****************** */
-$additionaldomainfields[".asia"]=array();
+$additionaldomainfields[".asia"] = array();
 $additionaldomainfields[".asia"]["locality"] = array(
     "Name" => "Locality",
     "DisplayName" => "Locality",
@@ -116,7 +115,7 @@ TM|Turkmenistan,TV|Tuvalu,AE|United Arab Emirates,UZ|Uzbekistan,VU|Vanuatu,VN|Vi
     /*"Default" => "AQ",*/
     "Default" => "AF",
     "Required" => true,
-	"LangVar" => 'asiaLocality',
+    "LangVar" => 'asiaLocality',
 );
 $additionaldomainfields[".asia"]["legalentity"] = array(
     "Name" => "Legal Entity Type",
@@ -124,7 +123,7 @@ $additionaldomainfields[".asia"]["legalentity"] = array(
     "Type" => "dropdown",
     "Options" => "naturalPerson|Natural person,corporation|Corporation,cooperative|Cooperative,partnership|Partnership,government|Government,politicalParty|Political Party,society|Society,institution|Institution,other|Other",
     "Default" => "naturalPerson",
-	"LangVar" => "asiaLegalEntity",
+    "LangVar" => "asiaLegalEntity",
 );
 $additionaldomainfields[".asia"]["identificationform"] = array(
     "Name" => "Identification Form",
@@ -132,7 +131,7 @@ $additionaldomainfields[".asia"]["identificationform"] = array(
     "Type" => "dropdown",
     "Options" => "passport|Passport,certificate|Certificate,legislation|Legislation,societyRegistry|Society Registry,politicalPartyRegistry|Political Party Registry,other|Other",
     "Default" => "passport",
-	"LangVar" => "asiaIdentificationForm"
+    "LangVar" => "asiaIdentificationForm"
 );
 $additionaldomainfields[".asia"]["identificationnumber"] = array(
     "Name" => "Identification Number",
@@ -140,7 +139,7 @@ $additionaldomainfields[".asia"]["identificationnumber"] = array(
     "Type" => "text",
     "Size" => "30",
     "Default" => "",
-	"LangVar" => "asiaIdentificationNumber"
+    "LangVar" => "asiaIdentificationNumber"
 );
 # the following is required only when "Legal Entity Type" is "other"
 $additionaldomainfields[".asia"]["otherlegalentity"] = array(
@@ -150,7 +149,7 @@ $additionaldomainfields[".asia"]["otherlegalentity"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"Langvar" => "asiaOtherLegalEntity"
+    "Langvar" => "asiaOtherLegalEntity"
 );
 # the following is required only when "Identification Form" is "other"
 $additionaldomainfields[".asia"]["otheridentificationform"] = array(
@@ -160,7 +159,7 @@ $additionaldomainfields[".asia"]["otheridentificationform"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "asiaOtherIdentificationForm",
+    "LangVar" => "asiaOtherIdentificationForm",
 );
 /* * ************* END .ASIA ****************** */
 
@@ -170,14 +169,14 @@ $additionaldomainfields[".asia"]["otheridentificationform"] = array(
  */
 
 /* * ************* START .FR****************** */
-$additionaldomainfields[".fr"]=array();
+$additionaldomainfields[".fr"] = array();
 $additionaldomainfields[".fr"]['holdertype'] = array(
     "Name" => "Holder Type",
     "DisplayName" => "Holder Type",
     "Type" => "dropdown",
     "Options" => "individual|Individual,company|Company,trademark|Trademark owner,association|Association,other|Other",
     "Default" => "individual",
-	"LangVar" => "frHolderType",
+    "LangVar" => "frHolderType",
     );
 
 # the following fields are required when "Holder Type" is "individual"
@@ -188,16 +187,16 @@ $additionaldomainfields[".fr"]["birthdate"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frBirthDate"
+    "LangVar" => "frBirthDate"
 );
 $additionaldomainfields[".fr"]["birthcountry"] = array(
     "Name" => "Birth Country Code",
     "DisplayName" => "Birth Country",
-    "Options"=>'AF|Afghanistan,AX|Aland Islands,AL|Albania,DZ|Algeria,AS|American Samoa,AD|Andorra,AO|Angola,AI|Anguilla,AQ|Antarctica,AG|Antigua and Barbuda,AR|Argentina,AM|Armenia,AW|Aruba,AU|Australia,AT|Austria,AZ|Azerbaijan,BS|Bahamas,BH|Bahrain,BD|Bangladesh,BB|Barbados,BY|Belarus,BE|Belgium,BZ|Belize,BJ|Benin,BM|Bermuda,BT|Bhutan,BO|Bolivia,BA|Bosnia and Herzegovina,BW|Botswana,BV|Bouvet Island,BR|Brazil,IO|British Indian Ocean Territory,VG|British Virgin Islands,BN|Brunei,BG|Bulgaria,BF|Burkina Faso,BI|Burundi,KH|Cambodia,CM|Cameroon,CA|Canada,CV|Cape Verde,KY|Cayman Islands,CF|Central African Republic,TD|Chad,CL|Chile,CN|China,CX|Christmas Island,CC|Cocos (Keeling) Islands,CO|Colombia,KM|Comoros,CG|Congo,CK|Cook Islands,CR|Costa Rica,HR|Croatia,CU|Cuba,CY|Cyprus,CZ|Czech Republic,CD|Democratic Republic of Congo,DK|Denmark,DJ|Djibouti,DM|Dominica,DO|Dominican Republic,TL|East Timor,EC|Ecuador,EG|Egypt,SV|El Salvador,GQ|Equatorial Guinea,ER|Eritrea,EE|Estonia,ET|Ethiopia,FK|Falkland Islands,FO|Faroe Islands,FM|Federated States of Micronesia,FJ|Fiji,FI|Finland,FR|France,GF|French Guyana,PF|French Polynesia,TF|French Southern Territories,GA|Gabon,GM|Gambia,GE|Georgia,DE|Germany,GH|Ghana,GI|Gibraltar,GR|Greece,GL|Greenland,GD|Grenada,GP|Guadeloupe,GU|Guam,GT|Guatemala,GG|Guernsey,GN|Guinea,GW|Guinea-Bissau,GY|Guyana,HT|Haiti,HM|Heard Island and Mcdonald Islands,HN|Honduras,HK|Hong Kong,HU|Hungary,IS|Iceland,IN|India,ID|Indonesia,IR|Iran,IQ|Iraq,IE|Ireland,IM|Isle of man,IL|Israel,IT|Italy,CI|Ivory Coast,JM|Jamaica,JP|Japan,JE|Jersey,JO|Jordan,KZ|Kazakhstan,KE|Kenya,KI|Kiribati,KW|Kuwait,KG|Kyrgyzstan,LA|Laos,LV|Latvia,LB|Lebanon,LS|Lesotho,LR|Liberia,LY|Libya,LI|Liechtenstein,LT|Lithuania,LU|Luxembourg,MO|Macau,MK|Macedonia,MG|Madagascar,MW|Malawi,MY|Malaysia,MV|Maldives,ML|Mali,MT|Malta,MH|Marshall Islands,MQ|Martinique,MR|Mauritania,MU|Mauritius,YT|Mayotte,MX|Mexico,MD|Moldova,MC|Monaco,MN|Mongolia,ME|Montenegro,MS|Montserrat,MA|Morocco,MZ|Mozambique,MM|Myanmar,NA|Namibia,NR|Nauru,NP|Nepal,NL|Netherlands,AN|Netherlands Antilles,NC|New Caledonia,NZ|New Zealand,NI|Nicaragua,NE|Niger,NG|Nigeria,NU|Niue,NF|Norfolk Island,KP|North Korea,MP|Northern Mariana Islands,NO|Norway,OM|Oman,PK|Pakistan,PW|Palau,PS|Palestinian Occupied Territories,PA|Panama,PG|Papua New Guinea,PY|Paraguay,PE|Peru,PH|Philippines,PN|Pitcairn Islands,PL|Poland,PT|Portugal,PR|Puerto Rico,QA|Qatar,RE|Reunion,RO|Romania,RU|Russia,RW|Rwanda,BL|Saint Barthélemy,SH|Saint Helena and Dependencies,KN|Saint Kitts and Nevis,LC|Saint Lucia,MF|Saint Martin,PM|Saint Pierre and Miquelon,VC|Saint Vincent and the Grenadines,WS|Samoa,SM|San Marino,ST|Sao Tome and Principe,SA|Saudi Arabia,SN|Senegal,RS|Serbia,SC|Seychelles,SL|Sierra Leone,SG|Singapore,SK|Slovakia,SI|Slovenia,SB|Solomon Islands,SO|Somalia,ZA|South Africa,GS|South Georgia and South Sandwich Islands,KR|South Korea,ES|Spain,LK|Sri Lanka,SD|Sudan,SR|Suriname,SJ|Svalbard and Jan Mayen,SZ|Swaziland,SE|Sweden,CH|Switzerland,SY|Syria,TW|Taiwan,TJ|Tajikistan,TZ|Tanzania,TH|Thailand,TG|Togo,TK|Tokelau,TO|Tonga,TT|Trinidad and Tobago,TN|Tunisia,TR|Turkey,TM|Turkmenistan,TC|Turks And Caicos Islands,TV|Tuvalu,VI|US Virgin Islands,UG|Uganda,UA|Ukraine,AE|United Arab Emirates,GB|United Kingdom,US|United States,UM|United States Minor Outlying Islands,UY|Uruguay,UZ|Uzbekistan,VU|Vanuatu,VA|Vatican City,VE|Venezuela,VN|Vietnam,WF|Wallis and Futuna,EH|Western Sahara,YE|Yemen,ZM|Zambia,ZW|Zimbabwe',
+    "Options" => 'AF|Afghanistan,AX|Aland Islands,AL|Albania,DZ|Algeria,AS|American Samoa,AD|Andorra,AO|Angola,AI|Anguilla,AQ|Antarctica,AG|Antigua and Barbuda,AR|Argentina,AM|Armenia,AW|Aruba,AU|Australia,AT|Austria,AZ|Azerbaijan,BS|Bahamas,BH|Bahrain,BD|Bangladesh,BB|Barbados,BY|Belarus,BE|Belgium,BZ|Belize,BJ|Benin,BM|Bermuda,BT|Bhutan,BO|Bolivia,BA|Bosnia and Herzegovina,BW|Botswana,BV|Bouvet Island,BR|Brazil,IO|British Indian Ocean Territory,VG|British Virgin Islands,BN|Brunei,BG|Bulgaria,BF|Burkina Faso,BI|Burundi,KH|Cambodia,CM|Cameroon,CA|Canada,CV|Cape Verde,KY|Cayman Islands,CF|Central African Republic,TD|Chad,CL|Chile,CN|China,CX|Christmas Island,CC|Cocos (Keeling) Islands,CO|Colombia,KM|Comoros,CG|Congo,CK|Cook Islands,CR|Costa Rica,HR|Croatia,CU|Cuba,CY|Cyprus,CZ|Czech Republic,CD|Democratic Republic of Congo,DK|Denmark,DJ|Djibouti,DM|Dominica,DO|Dominican Republic,TL|East Timor,EC|Ecuador,EG|Egypt,SV|El Salvador,GQ|Equatorial Guinea,ER|Eritrea,EE|Estonia,ET|Ethiopia,FK|Falkland Islands,FO|Faroe Islands,FM|Federated States of Micronesia,FJ|Fiji,FI|Finland,FR|France,GF|French Guyana,PF|French Polynesia,TF|French Southern Territories,GA|Gabon,GM|Gambia,GE|Georgia,DE|Germany,GH|Ghana,GI|Gibraltar,GR|Greece,GL|Greenland,GD|Grenada,GP|Guadeloupe,GU|Guam,GT|Guatemala,GG|Guernsey,GN|Guinea,GW|Guinea-Bissau,GY|Guyana,HT|Haiti,HM|Heard Island and Mcdonald Islands,HN|Honduras,HK|Hong Kong,HU|Hungary,IS|Iceland,IN|India,ID|Indonesia,IR|Iran,IQ|Iraq,IE|Ireland,IM|Isle of man,IL|Israel,IT|Italy,CI|Ivory Coast,JM|Jamaica,JP|Japan,JE|Jersey,JO|Jordan,KZ|Kazakhstan,KE|Kenya,KI|Kiribati,KW|Kuwait,KG|Kyrgyzstan,LA|Laos,LV|Latvia,LB|Lebanon,LS|Lesotho,LR|Liberia,LY|Libya,LI|Liechtenstein,LT|Lithuania,LU|Luxembourg,MO|Macau,MK|Macedonia,MG|Madagascar,MW|Malawi,MY|Malaysia,MV|Maldives,ML|Mali,MT|Malta,MH|Marshall Islands,MQ|Martinique,MR|Mauritania,MU|Mauritius,YT|Mayotte,MX|Mexico,MD|Moldova,MC|Monaco,MN|Mongolia,ME|Montenegro,MS|Montserrat,MA|Morocco,MZ|Mozambique,MM|Myanmar,NA|Namibia,NR|Nauru,NP|Nepal,NL|Netherlands,AN|Netherlands Antilles,NC|New Caledonia,NZ|New Zealand,NI|Nicaragua,NE|Niger,NG|Nigeria,NU|Niue,NF|Norfolk Island,KP|North Korea,MP|Northern Mariana Islands,NO|Norway,OM|Oman,PK|Pakistan,PW|Palau,PS|Palestinian Occupied Territories,PA|Panama,PG|Papua New Guinea,PY|Paraguay,PE|Peru,PH|Philippines,PN|Pitcairn Islands,PL|Poland,PT|Portugal,PR|Puerto Rico,QA|Qatar,RE|Reunion,RO|Romania,RU|Russia,RW|Rwanda,BL|Saint Barthélemy,SH|Saint Helena and Dependencies,KN|Saint Kitts and Nevis,LC|Saint Lucia,MF|Saint Martin,PM|Saint Pierre and Miquelon,VC|Saint Vincent and the Grenadines,WS|Samoa,SM|San Marino,ST|Sao Tome and Principe,SA|Saudi Arabia,SN|Senegal,RS|Serbia,SC|Seychelles,SL|Sierra Leone,SG|Singapore,SK|Slovakia,SI|Slovenia,SB|Solomon Islands,SO|Somalia,ZA|South Africa,GS|South Georgia and South Sandwich Islands,KR|South Korea,ES|Spain,LK|Sri Lanka,SD|Sudan,SR|Suriname,SJ|Svalbard and Jan Mayen,SZ|Swaziland,SE|Sweden,CH|Switzerland,SY|Syria,TW|Taiwan,TJ|Tajikistan,TZ|Tanzania,TH|Thailand,TG|Togo,TK|Tokelau,TO|Tonga,TT|Trinidad and Tobago,TN|Tunisia,TR|Turkey,TM|Turkmenistan,TC|Turks And Caicos Islands,TV|Tuvalu,VI|US Virgin Islands,UG|Uganda,UA|Ukraine,AE|United Arab Emirates,GB|United Kingdom,US|United States,UM|United States Minor Outlying Islands,UY|Uruguay,UZ|Uzbekistan,VU|Vanuatu,VA|Vatican City,VE|Venezuela,VN|Vietnam,WF|Wallis and Futuna,EH|Western Sahara,YE|Yemen,ZM|Zambia,ZW|Zimbabwe',
     "Type" => "dropdown",
     "Default" => "FR",
     "Required" => false,
-	"LangVar" => "frBirthCountry",
+    "LangVar" => "frBirthCountry",
 );
 # the following are required only when "Birth Country Code" is "fr"
 $additionaldomainfields[".fr"]["birthcity"] = array(
@@ -207,7 +206,7 @@ $additionaldomainfields[".fr"]["birthcity"] = array(
     "Size" => "20",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frBirthCity",
+    "LangVar" => "frBirthCity",
 );
 $additionaldomainfields[".fr"]["birthpostalcode"] = array(
     "Name" => "Birth Postal code",
@@ -216,7 +215,7 @@ $additionaldomainfields[".fr"]["birthpostalcode"] = array(
     "Size" => "10",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frBirthPostalCode",
+    "LangVar" => "frBirthPostalCode",
 );
 
 # the following fields are required when "Holder Type" is "company" or "trademark"
@@ -229,7 +228,7 @@ $additionaldomainfields[".fr"]["siren"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frSiren",
+    "LangVar" => "frSiren",
 );
 $additionaldomainfields[".fr"]["vat"] = array(
     "Name" => "VATNO",
@@ -238,7 +237,7 @@ $additionaldomainfields[".fr"]["vat"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frVAT"
+    "LangVar" => "frVAT"
 );
 
 $additionaldomainfields[".fr"]["duns"] = array(
@@ -248,7 +247,7 @@ $additionaldomainfields[".fr"]["duns"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frDuns",
+    "LangVar" => "frDuns",
 );
 
 # the following field is also required when  "Holder Type" is "trademark"
@@ -259,7 +258,7 @@ $additionaldomainfields[".fr"]["trademark"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frTradeMark",
+    "LangVar" => "frTradeMark",
 );
 
 # the following fields are also required when "Holder Type" is "association"
@@ -270,7 +269,7 @@ $additionaldomainfields[".fr"]["waldec"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frWaldec",
+    "LangVar" => "frWaldec",
 );
 $additionaldomainfields[".fr"]["dateofassociation"] = array(
     "Name" => "Date of Association YYYY-MM-DD",
@@ -279,7 +278,7 @@ $additionaldomainfields[".fr"]["dateofassociation"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"Langvar" => "frDateOfAssociation"
+    "Langvar" => "frDateOfAssociation"
 );
 $additionaldomainfields[".fr"]["dateofpublication"] = array(
     "Name" => "Date of Publication YYYY-MM-DD",
@@ -288,7 +287,7 @@ $additionaldomainfields[".fr"]["dateofpublication"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frDateOfPublication"
+    "LangVar" => "frDateOfPublication"
 );
 $additionaldomainfields[".fr"]["announcenumber"] = array(
     "Name" => "Announce No",
@@ -297,7 +296,7 @@ $additionaldomainfields[".fr"]["announcenumber"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frAnnounceNumber",
+    "LangVar" => "frAnnounceNumber",
 );
 $additionaldomainfields[".fr"]["pageno"] = array(
     "Name" => "Page No",
@@ -306,7 +305,7 @@ $additionaldomainfields[".fr"]["pageno"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frPageNo",
+    "LangVar" => "frPageNo",
 );
 
 # the following fields are also required when "Holder Type" is "other"
@@ -317,14 +316,14 @@ $additionaldomainfields[".fr"]["otherlegalstatus"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => false,
-	"LangVar" => "frOtherLegalStatus"
+    "LangVar" => "frOtherLegalStatus"
 );
 
 $additionaldomainfields[".fr"]["restrictedpublication"] = array(
     "Name" => "Restricted Publication",
     "DisplayName" => "Hide detais in whois (for individual only)",
     "Type" => "tickbox",
-	"LangVar" => "frRestrictedPublication",
+    "LangVar" => "frRestrictedPublication",
 );
 
 
@@ -351,7 +350,7 @@ $additionaldomainfields[".yt"] = $additionaldomainfields[".fr"];
  */
 
 /* * ************* START .IT****************** */
-$additionaldomainfields[".it"]=array();
+$additionaldomainfields[".it"] = array();
 $additionaldomainfields[".it"]["legalentity"] = array(
     "Name" => "Legal Entity Type",
     "DisplayName" => "Holder Type",
@@ -359,7 +358,7 @@ $additionaldomainfields[".it"]["legalentity"] = array(
     "Options" => "1. Italian and foreign natural persons|1. Italian and foreign natural persons,2. Companies/one man companies|2. Companies/one man companies,3. Freelance workers/professionals|3. Freelance workers/professionals,4. non-profit organizations|4. non-profit organizations,5. public organizations|5. public organizations,6. other subjects|6. other subjects,7. foreigners who match 2 - 6|7. foreigners who match 2 - 6",
     "Default" => "1. Italian and foreign natural persons",
     "Required" => true,
-	"LangVar" => "itLegalEntity"
+    "LangVar" => "itLegalEntity"
 );
 
 $additionaldomainfields[".it"]["nationality"] = array(
@@ -369,7 +368,7 @@ $additionaldomainfields[".it"]["nationality"] = array(
     "Options" => "AF|Afghanistan,AX|Aland Islands,AL|Albania,DZ|Algeria,AS|American Samoa,AD|Andorra,AO|Angola,AI|Anguilla,AQ|Antarctica,AG|Antigua and Barbuda,AR|Argentina,AM|Armenia,AW|Aruba,AU|Australia,AT|Austria,AZ|Azerbaijan,BS|Bahamas,BH|Bahrain,BD|Bangladesh,BB|Barbados,BY|Belarus,BE|Belgium,BZ|Belize,BJ|Benin,BM|Bermuda,BT|Bhutan,BO|Bolivia,BA|Bosnia and Herzegovina,BW|Botswana,BV|Bouvet Island,BR|Brazil,IO|British Indian Ocean Territory,VG|British Virgin Islands,BN|Brunei,BG|Bulgaria,BF|Burkina Faso,BI|Burundi,KH|Cambodia,CM|Cameroon,CA|Canada,CV|Cape Verde,KY|Cayman Islands,CF|Central African Republic,TD|Chad,CL|Chile,CN|China,CX|Christmas Island,CC|Cocos (Keeling) Islands,CO|Colombia,KM|Comoros,CG|Congo,CK|Cook Islands,CR|Costa Rica,HR|Croatia,CU|Cuba,CY|Cyprus,CZ|Czech Republic,CD|Democratic Republic of Congo,DK|Denmark,DJ|Djibouti,DM|Dominica,DO|Dominican Republic,TL|East Timor,EC|Ecuador,EG|Egypt,SV|El Salvador,GQ|Equatorial Guinea,ER|EritreaEE|Estonia,ET|Ethiopia,FK|Falkland Islands,FO|Faroe Islands,FM|Federated States of Micronesia,FJ|FijiFI|Finland,FR|FranceGF|French Guyana,PF|French Polynesia,TF|French Southern Territories,GA|Gabon,GM|Gambia,GE|Georgia,DE|Germany,GH|Ghana,GI|Gibraltar,GR|Greece,GL|Greenland,GD|Grenada,GP|Guadeloupe,GU|Guam,GT|Guatemala,GN|Guinea,GW|Guinea-Bissau,GY|Guyana,HT|Haiti,HM|Heard Island and Mcdonald Islands,HN|Honduras,HK|Hong Kong,HU|Hungary,IS|Iceland,IN|India,ID|Indonesia,IR|Iran,IQ|Iraq,IE|Ireland,IL|Israel,IT|Italy,CI|Ivory Coast,JM|Jamaica,JP|Japan,JO|Jordan,KZ|Kazakhstan,KE|Kenya,KI|Kiribati,KW|Kuwait,KG|Kyrgyzstan,LA|Laos,LV|Latvia,LB|Lebanon,LS|Lesotho,LR|Liberia,LY|Libya,LI|Liechtenstein,LT|Lithuania,LU|Luxembourg,MO|Macau,MK|Macedonia,MG|Madagascar,MW|Malawi,MY|Malaysia,MV|Maldives,ML|Mali,MT|Malta,MH|Marshall Islands,MQ|Martinique,MR|Mauritania,MU|Mauritius,YT|Mayotte,MX|Mexico,MD|Moldova,MC|Monaco,MN|Mongolia,ME|Montenegro,MS|Montserrat,MA|Morocco,MZ|Mozambique,MM|Myanmar,NA|Namibia,NR|Nauru,NP|Nepal,NL|Netherlands,AN|Netherlands Antilles,NC|New Caledonia,NZ|New Zealand,NI|Nicaragua,NE|Niger,NG|Nigeria,NU|Niue,NF|Norfolk Island,KP|North Korea,MP|Northern Mariana Islands,NO|Norway,OM|Oman,PK|Pakistan,PW|Palau,PS|Palestinian Occupied Territories,PA|Panama,PG|Papua New Guinea,PY|Paraguay,PE|Peru,PH|Philippines,PN|Pitcairn Islands,PL|Poland,PT|Portugal,PR|Puerto Rico,QA|Qatar,RE|Reunion,RO|Romania,RU|Russia,RW|Rwanda,SH|Saint Helena and Dependencies,KN|Saint Kitts and Nevis,LC|Saint Lucia,PM|Saint Pierre and Miquelon,VC|Saint Vincent and the Grenadines,WS|Samoa,SM|San Marino,ST|Sao Tome and Principe,SA|Saudi Arabia,SN|Senegal,RS|Serbia,SC|Seychelles,SL|Sierra Leone,SG|Singapore,SK|Slovakia,SI|Slovenia,SB|Solomon Islands,SO|Somalia,ZA|South Africa,GS|South Georgia and South Sandwich Islands,KR|South Korea,ES|Spain,LK|Sri Lanka,SD|Sudan,SR|Suriname,SJ|Svalbard and Jan Mayen,SZ|Swaziland,SE|Sweden,CH|Switzerland,SY|Syria,TW|Taiwan,TJ|Tajikistan,TZ|Tanzania,TH|Thailand,TG|Togo,TK|Tokelau,TO|Tonga,TT|Trinidad and Tobago,TN|Tunisia,TR|Turkey,TM|Turkmenistan,TC|Turks And Caicos Islands,TV|Tuvalu,VI|US Virgin Islands,UG|Uganda,UA|Ukraine,AE|United Arab Emirates,GB|United Kingdom,US|United States,UM|United States Minor Outlying Islands,UY|UruguayUZ|Uzbekistan,VU|Vanuatu,VA|Vatican City,VE|Venezuela,VN|Vietnam,WF|Wallis and Futuna,EH|Western Sahara,YE|Yemen,ZM|Zambia,ZW|Zimbabwe",
     "Default" => "IT",
     "Required" => true,
-	"LAngVar" => "itNationality",
+    "LAngVar" => "itNationality",
 );
 //for ugrade need to execute: UPDATE `tbldomainsadditionalfields` INNER JOIN `tbldomains` ON `tbldomains`.id=`tbldomainsadditionalfields`.`domainid` SET `tbldomainsadditionalfields`.`name`='VATTAXPassportIDNumber' WHERE `tbldomainsadditionalfields`.`name`='VAT/TAX/Passport/ID Number' AND `tbldomains`.`registrar`='ibs'
 $additionaldomainfields[".it"]["identificationnumber"] = array(
@@ -379,7 +378,7 @@ $additionaldomainfields[".it"]["identificationnumber"] = array(
     "Size" => "30",
     "Default" => "",
     "Required" => true,
-	"LangVar" => "itIdentificationNumber",
+    "LangVar" => "itIdentificationNumber",
 );
 
 
@@ -387,7 +386,7 @@ $additionaldomainfields[".it"]["whois"] = array(
     "Name" => "Hide data in public WHOIS",
     "DisplayName" => "Hide data in public WHOIS",
     "Type" => "tickbox",
-	"LangVar" => "itWhois",
+    "LangVar" => "itWhois",
 );
 
 $additionaldomainfields[".it"]["terms"] = array(
@@ -395,19 +394,19 @@ $additionaldomainfields[".it"]["terms"] = array(
     "DisplayName" => 'Accept .it registry <a href=\'itterms.html\' target=\'_blank\'>terms and conditions</a>',
     "Type" => "tickbox",
     "Required" => true,
-	"LangVar" => "itTerms",
+    "LangVar" => "itTerms",
 );
 
 /************** END .IT*******************/
 
 /******** START .DE*********/
-$additionaldomainfields[".de"]=array();
+$additionaldomainfields[".de"] = array();
 $additionaldomainfields[".de"][] = array(
     "Name" => "tosAgree",
     "Required" => true,
     "DisplayName" => "I agree to the <a href=\"http://www.denic.de/en/bedingungen.html\" target=\"_blank\">registry terms and conditions</a>",
     "Type" => "tickbox",
-	"LangVar" => "deTosAgree",
+    "LangVar" => "deTosAgree",
 );
 $additionaldomainfields[".de"][] = array(
     "Name" => "role",
@@ -415,37 +414,37 @@ $additionaldomainfields[".de"][] = array(
     "Default" => "PERSON",
     "DisplayName" => "Contact role",
     "Type" => "dropdown",
-	"LangVar" => "deRole",
+    "LangVar" => "deRole",
 );
 $additionaldomainfields[".de"][] = array(
     "Name" => "sip",
     "DisplayName" => "SIP",
     "Type" => "text",
-	"LangVar" => "deSip"
+    "LangVar" => "deSip"
 );
 $additionaldomainfields[".de"][] = array(
-	"Name" => "fax",
-	"DisplayName" => "Fax Number",
-	"Type" => "text",
-	"LangVar" => "deFax",
+    "Name" => "fax",
+    "DisplayName" => "Fax Number",
+    "Type" => "text",
+    "LangVar" => "deFax",
 );
 $additionaldomainfields[".de"][] = array(
     "Name" => "Restricted Publication",
     "DisplayName" => "Hide details in WHOIS.",
     "Type" => "tickbox",
-	"LangVar" => "deRestrictedPublication"
+    "LangVar" => "deRestrictedPublication"
 );
 
 /******** END .DE*********/
 
 /******** START .NL*********/
-$additionaldomainfields[".nl"]=array();
+$additionaldomainfields[".nl"] = array();
 $additionaldomainfields[".nl"][] = array(
     "Name" => "nlTerm",
     "Required" => true,
     "DisplayName" => "I agree to the <a href=\"https://www.sidn.nl/downloads/terms-and-conditions/General Terms and Conditions for nl Registrants.pdf\" target=\"_blank\">registry terms and conditions</a>",
     "Type" => "tickbox",
-	"LangVar" => "nlTerm",
+    "LangVar" => "nlTerm",
 );
 $additionaldomainfields[".nl"][] = array(
     "Name" => "nlLegalForm",
@@ -453,61 +452,60 @@ $additionaldomainfields[".nl"][] = array(
     "Required" => true,
     "DisplayName" => "Legal Registration Form",
     "Type" => "dropdown",
-	"LangVar" => "nlLeagalForm",
+    "LangVar" => "nlLeagalForm",
 );
 $additionaldomainfields[".nl"][] = array(
     "Name" => "nlRegNumber",
     "DisplayName" => "Legal Registration Number",
     "Type" => "text",
-	"LangVar" => "nlRegNumber",
+    "LangVar" => "nlRegNumber",
 );
 /******** END .NL*********/
 /******** START .TEL*********/
-$additionaldomainfields[".tel"]=array();
+$additionaldomainfields[".tel"] = array();
 $additionaldomainfields[".tel"][] = array(
-	"Name" => "telhostingaccount",
+    "Name" => "telhostingaccount",
     "DisplayName" => "Hosting Account",
-   	"Type" => "text",
-	"Required" => "true",
-	"LangVar" => "telHostingAccount",
+    "Type" => "text",
+    "Required" => "true",
+    "LangVar" => "telHostingAccount",
 );
 $additionaldomainfields[".tel"][] = array(
-	"Name" => "telhostingpassword",
+    "Name" => "telhostingpassword",
     "DisplayName" => "Hosting Password",
     "Type" => "text",
-	"Required" => "true",
-	"LangVar" => "telHostingPassword",
+    "Required" => "true",
+    "LangVar" => "telHostingPassword",
 );
 $additionaldomainfields[".tel"][] = array(
-	"Name" => "telhidewhoisdata",
+    "Name" => "telhidewhoisdata",
     "DisplayName" => "Hide details in WHOIS.",
     "Type" => "tickbox",
-	"LangVar" => "telHideWhoisData",
+    "LangVar" => "telHideWhoisData",
 );
 
 /******** END .TEL*********/
 /******** START .US*********/
 $additionaldomainfields[".us"] = array();
 $additionaldomainfields[".us"][] = array(
-	"Name" => "usnexuscategory",
+    "Name" => "usnexuscategory",
     "DisplayName" => "Nexus Category",
     "Type" => "dropdown",
-	"Options" => "C11|US Citizen,C12|US Permanent Resident,C21|US Organization,C31|Foreign Organization doing business in US,C32|Foreign Organization with US Office",
-	"LangVar" => "usNexusCategory",
+    "Options" => "C11|US Citizen,C12|US Permanent Resident,C21|US Organization,C31|Foreign Organization doing business in US,C32|Foreign Organization with US Office",
+    "LangVar" => "usNexusCategory",
 );
 $additionaldomainfields[".us"][] = array(
-	"Name" => "uspurpose",
+    "Name" => "uspurpose",
     "DisplayName" => "Application Purpose",
     "Type" => "dropdown",
-	"Options" => "P3|Personal use,P1|Business for profit,P2|Non-profit,P4|Educational,P5|Governmental",
-	"LangVar" => "usPurpose"
+    "Options" => "P3|Personal use,P1|Business for profit,P2|Non-profit,P4|Educational,P5|Governmental",
+    "LangVar" => "usPurpose"
 );
 $additionaldomainfields[".us"][] = array(
-	"Name" => "usnexuscountry",
+    "Name" => "usnexuscountry",
     "DisplayName" => "Nexus Country",
     "Type" => "dropdown",
-	"Options"=>"AF|Afghanistan,AX|Aland Islands,AL|Albania,DZ|Algeria,AS|American Samoa,AD|Andorra,AO|Angola,AI|Anguilla,AQ|Antarctica,AG|Antigua and Barbuda,AR|Argentina,AM|Armenia,AW|Aruba,AU|Australia,AT|Austria,AZ|Azerbaijan,BS|Bahamas,BH|Bahrain,BD|Bangladesh,BB|Barbados,BY|Belarus,BE|Belgium,BZ|Belize,BJ|Benin,BM|Bermuda,BT|Bhutan,BO|Bolivia,BA|Bosnia and Herzegovina,BW|Botswana,BV|Bouvet Island,BR|Brazil,IO|British Indian Ocean Territory,VG|British Virgin Islands,BN|Brunei,BG|Bulgaria,BF|Burkina Faso,BI|Burundi,KH|Cambodia,CM|Cameroon,CA|Canada,CV|Cape Verde,KY|Cayman Islands,CF|Central African Republic,TD|Chad,CL|Chile,CN|China,CX|Christmas Island,CC|Cocos (Keeling) Islands,CO|Colombia,KM|Comoros,CG|Congo,CK|Cook Islands,CR|Costa Rica,HR|Croatia,CU|Cuba,CW|Curacao,CY|Cyprus,CZ|Czech Republic,CD|Democratic Republic of Congo,DK|Denmark,DJ|Djibouti,DM|Dominica,DO|Dominican Republic,TL|East Timor,EC|Ecuador,EG|Egypt,SV|El Salvador,GQ|Equatorial Guinea,ER|Eritrea,EE|Estonia,ET|Ethiopia,FK|Falkland Islands,FO|Faroe Islands,FM|Federated States of Micronesia,FJ|Fiji,FI|Finland,FR|France,GF|French Guyana,PF|French Polynesia,TF|French Southern Territories,GA|Gabon,GM|Gambia,GE|Georgia,DE|Germany,GH|Ghana,GI|Gibraltar,GR|Greece,GL|Greenland,GD|Grenada,GP|Guadeloupe,GU|Guam,GT|Guatemala,GG|Guernsey,GN|Guinea,GW|Guinea-Bissau,GY|Guyana,HT|Haiti,HM|Heard Island and Mcdonald Islands,HN|Honduras,HK|Hong Kong,HU|Hungary,IS|Iceland,IN|India,ID|Indonesia,IR|Iran,IQ|Iraq,IE|Ireland,IM|Isle of man,IL|Israel,IT|Italy,CI|Ivory Coast,JM|Jamaica,JP|Japan,JE|Jersey,JO|Jordan,KZ|Kazakhstan,KE|Kenya,KI|Kiribati,XK|Kosovo,KW|Kuwait,KG|Kyrgyzstan,LA|Laos,LV|Latvia,LB|Lebanon,LS|Lesotho,LR|Liberia,LY|Libya,LI|Liechtenstein,LT|Lithuania,LU|Luxembourg,MO|Macau,MK|Macedonia,MG|Madagascar,MW|Malawi,MY|Malaysia,MV|Maldives,ML|Mali,MT|Malta,MH|Marshall Islands,MQ|Martinique,MR|Mauritania,MU|Mauritius,YT|Mayotte,MX|Mexico,MD|Moldova,MC|Monaco,MN|Mongolia,ME|Montenegro,MS|Montserrat,MA|Morocco,MZ|Mozambique,MM|Myanmar,NA|Namibia,NR|Nauru,NP|Nepal,NL|Netherlands,AN|Netherlands Antilles,NC|New Caledonia,NZ|New Zealand,NI|Nicaragua,NE|Niger,NG|Nigeria,NU|Niue,NF|Norfolk Island,KP|North Korea,MP|Northern Mariana Islands,NO|Norway,OM|Oman,PK|Pakistan,PW|Palau,PS|Palestinian Occupied Territories,PA|Panama,PG|Papua New Guinea,PY|Paraguay,PE|Peru,PH|Philippines,PN|Pitcairn Islands,PL|Poland,PT|Portugal,PR|Puerto Rico,QA|Qatar,RE|Reunion,RO|Romania,RU|Russia,RW|Rwanda,BL|Saint BarthГ©lemy,SH|Saint Helena and Dependencies,KN|Saint Kitts and Nevis,LC|Saint Lucia,MF|Saint Martin,PM|Saint Pierre and Miquelon,VC|Saint Vincent and the Grenadines,WS|Samoa,SM|San Marino,ST|Sao Tome and Principe,SA|Saudi Arabia,SN|Senegal,RS|Serbia,SC|Seychelles,SL|Sierra Leone,SG|Singapore,SK|Slovakia,SI|Slovenia,SB|Solomon Islands,SO|Somalia,ZA|South Africa,GS|South Georgia and South Sandwich Islands,KR|South Korea,ES|Spain,IC|Spain (Canary Islands),LK|Sri Lanka,SD|Sudan,SR|Suriname,SJ|Svalbard and Jan Mayen,SZ|Swaziland,SE|Sweden,CH|Switzerland,SY|Syria,TW|Taiwan,TJ|Tajikistan,TZ|Tanzania,TH|Thailand,TG|Togo,TK|Tokelau,TO|Tonga,TT|Trinidad and Tobago,TN|Tunisia,TR|Turkey,TM|Turkmenistan,TC|Turks And Caicos Islands,TV|Tuvalu,VI|US Virgin Islands,UG|Uganda,UA|Ukraine,AE|United Arab Emirates,GB|United Kingdom,US|United States,UM|United States Minor Outlying Islands,UY|Uruguay,UZ|Uzbekistan,VU|Vanuatu,VA|Vatican City,VE|Venezuela,VN|Vietnam,WF|Wallis and Futuna,EH|Western Sahara,YE|Yemen,ZM|Zambia,ZW|Zimbabwe",
-	"LangVar" => "usNexusCountry"
+    "Options" => "AF|Afghanistan,AX|Aland Islands,AL|Albania,DZ|Algeria,AS|American Samoa,AD|Andorra,AO|Angola,AI|Anguilla,AQ|Antarctica,AG|Antigua and Barbuda,AR|Argentina,AM|Armenia,AW|Aruba,AU|Australia,AT|Austria,AZ|Azerbaijan,BS|Bahamas,BH|Bahrain,BD|Bangladesh,BB|Barbados,BY|Belarus,BE|Belgium,BZ|Belize,BJ|Benin,BM|Bermuda,BT|Bhutan,BO|Bolivia,BA|Bosnia and Herzegovina,BW|Botswana,BV|Bouvet Island,BR|Brazil,IO|British Indian Ocean Territory,VG|British Virgin Islands,BN|Brunei,BG|Bulgaria,BF|Burkina Faso,BI|Burundi,KH|Cambodia,CM|Cameroon,CA|Canada,CV|Cape Verde,KY|Cayman Islands,CF|Central African Republic,TD|Chad,CL|Chile,CN|China,CX|Christmas Island,CC|Cocos (Keeling) Islands,CO|Colombia,KM|Comoros,CG|Congo,CK|Cook Islands,CR|Costa Rica,HR|Croatia,CU|Cuba,CW|Curacao,CY|Cyprus,CZ|Czech Republic,CD|Democratic Republic of Congo,DK|Denmark,DJ|Djibouti,DM|Dominica,DO|Dominican Republic,TL|East Timor,EC|Ecuador,EG|Egypt,SV|El Salvador,GQ|Equatorial Guinea,ER|Eritrea,EE|Estonia,ET|Ethiopia,FK|Falkland Islands,FO|Faroe Islands,FM|Federated States of Micronesia,FJ|Fiji,FI|Finland,FR|France,GF|French Guyana,PF|French Polynesia,TF|French Southern Territories,GA|Gabon,GM|Gambia,GE|Georgia,DE|Germany,GH|Ghana,GI|Gibraltar,GR|Greece,GL|Greenland,GD|Grenada,GP|Guadeloupe,GU|Guam,GT|Guatemala,GG|Guernsey,GN|Guinea,GW|Guinea-Bissau,GY|Guyana,HT|Haiti,HM|Heard Island and Mcdonald Islands,HN|Honduras,HK|Hong Kong,HU|Hungary,IS|Iceland,IN|India,ID|Indonesia,IR|Iran,IQ|Iraq,IE|Ireland,IM|Isle of man,IL|Israel,IT|Italy,CI|Ivory Coast,JM|Jamaica,JP|Japan,JE|Jersey,JO|Jordan,KZ|Kazakhstan,KE|Kenya,KI|Kiribati,XK|Kosovo,KW|Kuwait,KG|Kyrgyzstan,LA|Laos,LV|Latvia,LB|Lebanon,LS|Lesotho,LR|Liberia,LY|Libya,LI|Liechtenstein,LT|Lithuania,LU|Luxembourg,MO|Macau,MK|Macedonia,MG|Madagascar,MW|Malawi,MY|Malaysia,MV|Maldives,ML|Mali,MT|Malta,MH|Marshall Islands,MQ|Martinique,MR|Mauritania,MU|Mauritius,YT|Mayotte,MX|Mexico,MD|Moldova,MC|Monaco,MN|Mongolia,ME|Montenegro,MS|Montserrat,MA|Morocco,MZ|Mozambique,MM|Myanmar,NA|Namibia,NR|Nauru,NP|Nepal,NL|Netherlands,AN|Netherlands Antilles,NC|New Caledonia,NZ|New Zealand,NI|Nicaragua,NE|Niger,NG|Nigeria,NU|Niue,NF|Norfolk Island,KP|North Korea,MP|Northern Mariana Islands,NO|Norway,OM|Oman,PK|Pakistan,PW|Palau,PS|Palestinian Occupied Territories,PA|Panama,PG|Papua New Guinea,PY|Paraguay,PE|Peru,PH|Philippines,PN|Pitcairn Islands,PL|Poland,PT|Portugal,PR|Puerto Rico,QA|Qatar,RE|Reunion,RO|Romania,RU|Russia,RW|Rwanda,BL|Saint BarthГ©lemy,SH|Saint Helena and Dependencies,KN|Saint Kitts and Nevis,LC|Saint Lucia,MF|Saint Martin,PM|Saint Pierre and Miquelon,VC|Saint Vincent and the Grenadines,WS|Samoa,SM|San Marino,ST|Sao Tome and Principe,SA|Saudi Arabia,SN|Senegal,RS|Serbia,SC|Seychelles,SL|Sierra Leone,SG|Singapore,SK|Slovakia,SI|Slovenia,SB|Solomon Islands,SO|Somalia,ZA|South Africa,GS|South Georgia and South Sandwich Islands,KR|South Korea,ES|Spain,IC|Spain (Canary Islands),LK|Sri Lanka,SD|Sudan,SR|Suriname,SJ|Svalbard and Jan Mayen,SZ|Swaziland,SE|Sweden,CH|Switzerland,SY|Syria,TW|Taiwan,TJ|Tajikistan,TZ|Tanzania,TH|Thailand,TG|Togo,TK|Tokelau,TO|Tonga,TT|Trinidad and Tobago,TN|Tunisia,TR|Turkey,TM|Turkmenistan,TC|Turks And Caicos Islands,TV|Tuvalu,VI|US Virgin Islands,UG|Uganda,UA|Ukraine,AE|United Arab Emirates,GB|United Kingdom,US|United States,UM|United States Minor Outlying Islands,UY|Uruguay,UZ|Uzbekistan,VU|Vanuatu,VA|Vatican City,VE|Venezuela,VN|Vietnam,WF|Wallis and Futuna,EH|Western Sahara,YE|Yemen,ZM|Zambia,ZW|Zimbabwe",
+    "LangVar" => "usNexusCountry"
 );
 /******** END .US*********/
-?>
