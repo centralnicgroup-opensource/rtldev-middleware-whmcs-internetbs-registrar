@@ -959,7 +959,6 @@ function ibs_GetEmailForwarding($params)
  */
 function ibs_SaveEmailForwarding($params)
 {
-    var_dump(json_encode($params));
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
@@ -1239,9 +1238,7 @@ function ibs_SaveDNS($params)
  */
 function ibs_RegisterDomain($params)
 {
-    var_dump(json_encode($params));
     $params = ibs_get_utf8_parameters($params);
-    var_dump(json_encode($params));
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
