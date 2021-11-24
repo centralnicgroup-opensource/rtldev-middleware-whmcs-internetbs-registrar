@@ -1,6 +1,6 @@
 <?php
 
-define("IBS_MODULE_VERSION", "1.0.0");
+define("IBS_MODULE_VERSION", "1.0.1");
 
 if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
@@ -3512,14 +3512,23 @@ function ibs_RemoveUrlForwarding($params)
 
 function ibs_GetTldPricing(array $params)
 {
+    $command = 'GetCurrencies';
+    $postData = array(
+    );
 
+    $results = localAPI($command, $postData);
+    $defaultCurrency=$results['currencies']['currency'][0]['code'];
+    $currency='USD';
+    if(in_array($defaultCurrency,array('USD','CAD','AUD','JPY','EUR','GBP'))){
+        $currency=$defaultCurrency;
+    }
     $username = $params ["Username"];
     $password = $params ["Password"];
     $testmode = $params ["TestMode"];
     $apiServerUrl = ($testmode == "on") ? API_TESTSERVER_URL : API_SERVER_URL;
     $commandUrl = $apiServerUrl . "/Account/PriceList/Get";
 
-    $data = array('apikey' => $username, 'password' => $password,"version" => '5');
+    $data = array('apikey' => $username, 'password' => $password,"version" => '5','currency'=>$currency);
     $r = ibs_runCommand($commandUrl, $data);
     ibs_debugLog(array("action" => "raw response", "requestParam" => "","responseParam" => $r));
     $i = 0;
