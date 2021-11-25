@@ -114,10 +114,6 @@ function hook_ibs_validateData($params)
         $table = "tbladmins";
         $admin = Capsule::table($table)->first();
         $adminid = $admin->id;
-//      $result = select_query($table,$fields,'','','',1);
-//      while($data = mysql_fetch_array($result)){
-//          $adminid = $data["id"];
-//      }
     }
 
     if ($params['custtype'] == "new") {
@@ -142,7 +138,7 @@ function hook_ibs_validateData($params)
             $registrantDetails = localAPI("getcontacts", $value, $adminid);
             $contacts = $registrantDetails['contacts']['contact'];
             //Get selected contact details from available contacts
-            for ($i = 0; $i < count($contacts); $i++) {
+            for ($i = 0, $iMax = count($contacts); $i < $iMax; $i++) {
                 if ($contacts[$i]['id'] == $params['contact']) {
                     $countryCode = $contacts[$i]['country'];
                     $phoneNumber = $contacts[$i]['phonenumber'];
@@ -171,13 +167,13 @@ function hook_ibs_validateData($params)
 
 
     $euroCountries = array('AX', 'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'GF', 'DE', 'GI', 'GR', 'GP', 'HU', 'IS', 'IE', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'MQ', 'NL', 'NO', 'PL', 'PT', 'RE', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB');
-    for ($i = 0; $i < count($cart); $i++) {
+    for ($i = 0, $iMax = count($cart); $i < $iMax; $i++) {
         $domainName = $cart[$i]['domain'];
         $tld = ibs_getTld($domainName);
         // Check Country Code for EU
         if ($tld == ".eu" || $tld == ".fr" || $tld == ".re" || $tld == ".pm" || $tld == ".yt" || $tld == ".wf" || $tld == ".tf") {
             if (!in_array($countryCode, $euroCountries)) {
-                $errors[] = "Registrant must be from European union (" . $domainName . ")";
+                $errors[] = "Registrant must be from European union (" . $domainName . "). Provided $countryCode";
             }
         //Check Country Code for AFNIC tlds
         } elseif ($tld == ".de") {

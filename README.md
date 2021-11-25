@@ -60,6 +60,10 @@ From the TLDs that require additional data we currently support: .co.uk, .org.uk
 Our module is in English, and we provide an Italian translation as well.
 You can find it in the lang/overrides folder, and you need to copy the file italian.php to `WHMCSROOT/lang/overrides/`.
 
+### Notes
+The price sync feature supports only the following currencies: USD, EUR, GBP, CAD, AUD and JPY.
+If your default currency is not one of the above then the prices are pulled from our API in USD and you need to define exchange rates between USD and your default currency in order to use this feature.
+
 ### Developer Corner
 
 Install composer and then care about installing the below global dependencies.
