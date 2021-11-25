@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/internetbs/whmcs-internetbs-registrar/compare/v1.0.0...v1.0.1) (2021-11-25)
+
+
+### Bug Fixes
+
+* **registrar tld sync:** Modified the price sync to check the defaut currency of the WHMCS installation and, if that currency is supported by us, pull the prices in that currency ([3e66f13](https://github.com/internetbs/whmcs-internetbs-registrar/commit/3e66f1385753741b8487ef07b5cbb640a1471717))
+
 # 1.0.0 (2021-08-23)
 
 
