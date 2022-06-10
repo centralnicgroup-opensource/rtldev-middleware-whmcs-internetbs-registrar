@@ -214,9 +214,11 @@ function hook_ibs_validateData($params)
 }
 add_hook("ShoppingCartValidateCheckout", 1, "hook_ibs_validateData");
 
+
 /**
     Check if domain is under claim or not.
 **/
+/* disable trademark claim checking
 function hook_ibs_check_trademark_claim($vars)
 {
     //Call domain check api to know if domain is under TMCH or not.
@@ -281,6 +283,7 @@ function hook_ibs_save_tmch_value($vars)
 
 add_hook("AfterShoppingCartCheckout", 1, "hook_ibs_save_tmch_value");
 
+*/
 function ibs_getTld($domainName)
 {
     $tldList = array(".com",".eu",".fr",".re",".pm",".yt",".wf",".tf",".uk",".co.uk",".org.uk",".me.uk",".nl",".asia",".de",".it",".nyc",".tel");

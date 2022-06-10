@@ -1,9 +1,8 @@
 <?php
-
-if (file_exists(dirname(__FILE__) . '/../../../dbconnect.php')) {
-    require dirname(__FILE__) . '/../../../dbconnect.php';
+if (file_exists(__DIR__ . '/../../../dbconnect.php')) {
+    require __DIR__ . '/../../../dbconnect.php';
 } else {
-    require dirname(__FILE__) . '/../../../init.php';
+    require __DIR__ . '/../../../init.php';
 }
 require ROOTDIR . '/includes/functions.php';
 require ROOTDIR . '/includes/registrarfunctions.php';
@@ -58,7 +57,7 @@ $postfields = array ();
 $postfields ['ApiKey'] = $params ['Username'];
 $postfields ['Password'] = $params ['Password'];
 $postfields ['ResponseFormat'] = 'TEXT';
-$postfields ['CompactList'] = 'no';
+$postfields ['returnfields'] = 'paiduntil';
 $testMode = trim(strtolower($params ['TestMode'])) === "on";
 $SyncNextDueDate = trim(strtolower($params ["SyncNextDueDate"])) === "on";
 
