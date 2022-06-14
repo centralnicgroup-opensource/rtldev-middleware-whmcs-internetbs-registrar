@@ -33,6 +33,9 @@
     "registration",
     "application"
   ],
+  "overrides":{
+		"glob-parent":"^6.0.2"
+	},
   "devDependencies": {
     "@hexonet/semantic-release-github-whmcsbase-config": "^4.0.1",
     "gulp": "^4.0.2",
