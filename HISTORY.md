@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/internetbs/whmcs-internetbs-registrar/compare/v1.0.2...v1.0.3) (2022-06-28)
+
+
+### Bug Fixes
+
+* **missing function:** causing fatal error, patched ([b5796ff](https://github.com/internetbs/whmcs-internetbs-registrar/commit/b5796ff97d3b0179423e6b13ef7b6b3bfef38d38))
+
 ## [1.0.2](https://github.com/internetbs/whmcs-internetbs-registrar/compare/v1.0.1...v1.0.2) (2022-06-10)
 
 
