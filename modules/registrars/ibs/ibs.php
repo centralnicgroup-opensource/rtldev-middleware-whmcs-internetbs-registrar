@@ -28,6 +28,24 @@ function ibs_getLastError() {
     return $ibs_last_error;
 }
 
+
+function ibs_billableOperationErrorHandler($params, $subject, $message){
+    $dept=$params['NotifyOnError'];
+    //get dept id
+    if (preg_match('/.+\((\d+)\)/ix', $dept, $regs)) {
+        $depId = $regs[1];
+        $command = 'OpenTicket';
+        $postData = array(
+            'deptid' => $depId,
+            'subject' => "IBS MODULE ERROR: ".$subject,
+            'message' => $message,
+            'priority' => 'High',
+            'email'=>'info@support.internet.bs',
+            'name' => "Internet.bs registrar module"
+        );
+        localAPI($command, $postData);
+    }
+}
 /**
  * Returns whois status of domain
  * @param $params
@@ -1766,6 +1784,7 @@ function ibs_RegisterDomain($params) {
 
     //There was an error registering the domain
     if ($values ['error']) {
+        $data["password"]="*****";$data['apikey']='*****';
         $subject = "$domainName registration error";
         $message = "There was an error registering the domain $domainName: ".$values ['error']."\n\n\n";
         $message .= "Request parameters: " . print_r($data,true) . "\n\n";
@@ -2223,6 +2242,7 @@ function ibs_TransferDomain($params) {
     }
     //There was an error transferring the domain
     if ($values ['error']) {
+        $data["password"]="*****";$data['apikey']='*****';
         $subject = "$domainName transfer error";
         $message = "There was an error starting transfer for $domainName: ".$values ['error']."\n\n\n";
         $message .= "Request parameters: " . print_r($data,true) . "\n\n";
@@ -2289,6 +2309,7 @@ function ibs_RenewDomain($params) {
     }
     //There was an error renewing the domain
     if ($values ['error']) {
+        $data["password"]="*****";$data['apikey']='*****';
         $subject = "$domainName renewal error";
         $message = "There was an error renewing the domain $domainName: ".$values ['error']."\n\n\n";
         $message .= "Request parameters: " . print_r($data,true) . "\n\n";
