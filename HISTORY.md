@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/internetbs/whmcs-internetbs-registrar/compare/v1.0.3...v1.0.4) (2022-07-11)
+
+
+### Bug Fixes
+
+* **hooks:** this is a fix to include_once the IBS module in the hooks file ([e11ce5f](https://github.com/internetbs/whmcs-internetbs-registrar/commit/e11ce5ff13cefecd3cca6222d00846546778b23e))
+
 ## [1.0.3](https://github.com/internetbs/whmcs-internetbs-registrar/compare/v1.0.2...v1.0.3) (2022-06-28)
 
 
