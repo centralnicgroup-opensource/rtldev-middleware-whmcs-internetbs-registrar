@@ -6,7 +6,7 @@
 
 use WHMCS\Database\Capsule;
 
-include("ibs.php");
+include_once("ibs.php");
 function hook_ibs_validateAdditionalFields($params)
 {
     $errors = array();
