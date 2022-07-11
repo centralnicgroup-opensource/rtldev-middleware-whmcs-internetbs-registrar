@@ -26,15 +26,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      #- name: Install Dependencies::PHP${{ matrix.php-version }}
-      #  run: |
-      #    echo "$HOME/.composer/vendor/bin" >> $GITHUB_PATH
-      #    composer global require dealerdirect/phpcodesniffer-composer-installer roave/security-advisories:dev-master squizlabs/php_codesniffer phpcompatibility/php-compatibility
-      # TODO migrate the below to gulp calls
-      #- name: Check PHP Compatibility
-      #  run: phpcs --standard=PHPCompatibility -s -q -n --colors --runtime-set testVersion ${{ matrix.php-version }} --extensions=php,inc,lib --ignore=sdk,node_modules,vendor,templates_c .
-      #- name: Check PSR12 Standard
-      #  run: phpcs --standard=PSR12 -s -q -n --colors --extensions=php,inc,lib --ignore=sdk,node_modules,vendor,templates_c .
+      - name: Install Dependencies::PHP${{ matrix.php-version }}
+        run: |
+          echo "$HOME/.composer/vendor/bin" >> $GITHUB_PATH
+          composer global require squizlabs/php_codesniffer
+      - name: Setup NodeJS LTS
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          check-latest: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Linting
+        run: gulp lint
+
   release:
     name: Release @ NodeJS LTS - x86 - ubuntu-latest
     runs-on: ubuntu-latest
