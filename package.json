@@ -42,7 +42,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-tap": "^2.0.0",
     "gulp-zip": "^5.1.0",
-    "semantic-release": "^19.0.3"
+    "semantic-release": "^19.0.5"
   },
   "scripts": {
     "codeFix": "phpcbf --standard=PSR12 -q --ignore=node_modules,vendor,templates_c ."
