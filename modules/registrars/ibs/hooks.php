@@ -107,6 +107,10 @@ function hook_ibs_validateData($params)
     $errors = array();
     $cart = $_SESSION['cart']['domains'];
 
+    if (!is_array($cart)) {
+        return $errors;
+    }
+
     /* get admin id*/
     if (isset($_SESSION["adminid"])) {
         $adminid = $_SESSION["adminid"];
