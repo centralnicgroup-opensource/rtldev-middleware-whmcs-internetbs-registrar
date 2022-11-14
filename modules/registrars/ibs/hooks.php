@@ -104,8 +104,12 @@ add_hook("ShoppingCartValidateDomainsConfig", 1, "hook_ibs_validateAdditionalFie
 **/
 function hook_ibs_validateData($params)
 {
-    $errors = array();
+    $errors = [];
     $cart = $_SESSION['cart']['domains'];
+
+    if (!is_array($cart)) {
+        return $errors;
+    }
 
     /* get admin id*/
     if (isset($_SESSION["adminid"])) {
