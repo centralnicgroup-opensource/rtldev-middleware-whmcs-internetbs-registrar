@@ -1,3 +1,11 @@
+## [1.0.5](https://github.com/internetbs/whmcs-internetbs-registrar/compare/v1.0.4...v1.0.5) (2022-11-14)
+
+
+### Bug Fixes
+
+* **hook:** check if cart is empty before validating shopping cart ([cf8a0a3](https://github.com/internetbs/whmcs-internetbs-registrar/commit/cf8a0a3afd318420dfbc80cfc9583f3fb94bb715)), closes [#20](https://github.com/internetbs/whmcs-internetbs-registrar/issues/20)
+* **php 8 support:** patching index access error in phone number reformatting function ([eae2815](https://github.com/internetbs/whmcs-internetbs-registrar/commit/eae281596c92c77eb5c5b12652afdc10edb81d93)), closes [#22](https://github.com/internetbs/whmcs-internetbs-registrar/issues/22)
+
 ## [1.0.4](https://github.com/internetbs/whmcs-internetbs-registrar/compare/v1.0.3...v1.0.4) (2022-07-11)
 
 
