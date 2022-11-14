@@ -2875,7 +2875,7 @@ function ibs_reformatPhone($phoneNumber, $countryCode)
     $scontrol = trim($phoneNumber);
     $l = strlen($scontrol);
     /* check if first character is + */
-    if ($scontrol{0} == '+') {
+    if ($scontrol[0] == '+') {
         $plus = true;
         $phoneExplode = explode(".", $scontrol);
         if (count($phoneExplode) > 1) {
@@ -2909,7 +2909,7 @@ function ibs_reformatPhone($phoneNumber, $countryCode)
 
     $rphone = "";
     /* If first digit is +, find countrycode from that string, and prepend it in phone number */
-    if ($scontrol{0} == '+') {
+    if ($scontrol[0] == '+') {
         for ($i = 2; $i < strlen($scontrol); $i++) {
             $first = substr($scontrol, 1, $i - 1);
 
