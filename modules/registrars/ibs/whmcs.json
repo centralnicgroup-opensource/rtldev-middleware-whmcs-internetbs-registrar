@@ -1,29 +1,29 @@
 {
-    "schema": "1.0",
-    "type": "whmcs-registrars",
-    "name": "ibs",
-    "license": "MIT",
-    "category": "domains",
-    "description": {
-        "name": "internet.bs v1.0.5",
-        "tagline": "A leading domain registration provider.",
-        "long": "## No Account yet? Signup [here](https://internetbs.net/en/index.html) for free!",
-        "features": [
-            "Automated Domain Registrations, Transfers, Renewals & Deletions",
-            "Ability to View/Change Nameservers & WHOIS Info"
-        ]
-    },
-    "logo": {
-        "filename": "logo.gif"
-    },
-    "support": {
-        "homepage": "https:\/\/internetbs.net",
-        "docs_url": "https://github.com/internetbs/whmcs-internetbs-registrar#readme",
-        "support_url": "https://internetbs.net/en/contact.html"
-    },
-    "authors": [
-        {
-            "name": "Pavel Ciocan"
-        }
+  "schema": "1.0",
+  "type": "whmcs-registrars",
+  "name": "ibs",
+  "license": "MIT",
+  "category": "domains",
+  "description": {
+    "name": "internet.bs v1.0.5",
+    "tagline": "A leading domain registration provider.",
+    "long": "## No Account yet? Signup [here](https://internetbs.net/en/index.html) for free!",
+    "features": [
+      "Automated Domain Registrations, Transfers, Renewals & Deletions",
+      "Ability to View/Change Nameservers & WHOIS Info"
     ]
+  },
+  "logo": {
+    "filename": "logo.gif"
+  },
+  "support": {
+    "homepage": "https://internetbs.net",
+    "docs_url": "https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar#readme",
+    "support_url": "https://internetbs.net/en/contact.html"
+  },
+  "authors": [
+    {
+      "name": "Pavel Ciocan"
+    }
+  ]
 }

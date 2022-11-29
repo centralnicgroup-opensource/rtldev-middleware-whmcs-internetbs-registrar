@@ -4,26 +4,26 @@ The Internet.bs Registrar Module is shipped with WHMCS but we have own version o
 
 ## Supported Features
 
-* Registrar TLD Sync / Pricing Import (WHMCS 7.10)
-* Domain & Transfer Synchronization
-* Internationl Domain Names (IDNs)
-* Additional Domain Fields
-* Premium Domains
-* Domain Registration
-* Domain Renewal
-* Domain Transfer
-* Domain Management
-* WHOIS Update
-* Nameserver Registration & Management
-* Get EPP Code
-* DNS Management
-* Email Forwarding
-* URL Forwarding
-* WHOIS Privacy / ID Protection
+- Registrar TLD Sync / Pricing Import (WHMCS 7.10)
+- Domain & Transfer Synchronization
+- Internationl Domain Names (IDNs)
+- Additional Domain Fields
+- Premium Domains
+- Domain Registration
+- Domain Renewal
+- Domain Transfer
+- Domain Management
+- WHOIS Update
+- Nameserver Registration & Management
+- Get EPP Code
+- DNS Management
+- Email Forwarding
+- URL Forwarding
+- WHOIS Privacy / ID Protection
 
 ## Installation and Migration from older versions
 
-To install our module please download the latest version from [here](https://github.com/internetbs/whmcs-internetbs-registrar/archive/refs/heads/master.zip),
+To install our module please download the latest version from [here](https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar/archive/refs/heads/master.zip),
 unpack it locally and then:
 
 1. Copy the **ibs** folder to whmcs modules/registrars
