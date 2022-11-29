@@ -1,5 +1,5 @@
 {
-  "name": "whmcs-internetbs-registrar",
+  "name": "rtldev-middleware-whmcs-internetbs-registrar",
   "description": "internet.bs registrar module for WHMCS",
   "version": "0.0.0-development",
   "private": true,
@@ -11,9 +11,9 @@
     "node": ">=16.15.1",
     "npm": ">=8.11.1"
   },
-  "homepage": "https://github.com/internetbs/whmcs-internetbs-registrar",
-  "repository": "github:internetbs/whmcs-internetbs-registrar.git",
-  "bugs": "https://github.com/internetbs/whmcs-internetbs-registrar/issues",
+  "homepage": "https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar",
+  "repository": "github:centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar.git",
+  "bugs": "https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar/issues",
   "maintainers": [
     {
       "name": "Pavel Ciocan"
