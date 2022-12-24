@@ -2959,7 +2959,7 @@ function ibs_get_utf8_parameters($params)
 {
     $config = array();
     $result = full_query("SELECT setting, value FROM tblconfiguration;");
-    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    while ($row = mysql_fetch_array($result, 'MYSQL_ASSOC')) {
         $config[strtolower($row['setting'])] = $row['value'];
     }
     if ((strtolower($config["charset"]) != "utf-8") && (strtolower($config["charset"]) != "utf8")) {
@@ -2967,18 +2967,18 @@ function ibs_get_utf8_parameters($params)
     }
 
     $result = full_query("SELECT orderid FROM tbldomains WHERE id='" . mysql_real_escape_string($params["domainid"]) . "' LIMIT 1;");
-    if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
+    if (!($row = mysql_fetch_array($result, 'MYSQL_ASSOC'))) {
         return $params;
     }
 
     $result = full_query("SELECT userid,contactid FROM tblorders WHERE id='" . mysql_real_escape_string($row['orderid']) . "' LIMIT 1;");
-    if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
+    if (!($row = mysql_fetch_array($result, 'MYSQL_ASSOC'))) {
         return $params;
     }
 
     if ($row['contactid']) {
         $result = full_query("SELECT firstname, lastname, companyname, email, address1, address2, city, state, postcode, country, phonenumber FROM tblcontacts WHERE id='" . mysql_real_escape_string($row['contactid']) . "' LIMIT 1;");
-        if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
+        if (!($row = mysql_fetch_array($result, 'MYSQL_ASSOC'))) {
             return $params;
         }
         foreach ($row as $key => $value) {
@@ -2986,7 +2986,7 @@ function ibs_get_utf8_parameters($params)
         }
     } elseif ($row['userid']) {
         $result = full_query("SELECT firstname, lastname, companyname, email, address1, address2, city, state, postcode, country, phonenumber FROM tblclients WHERE id='" . mysql_real_escape_string($row['userid']) . "' LIMIT 1;");
-        if (!($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
+        if (!($row = mysql_fetch_array($result, 'MYSQL_ASSOC'))) {
             return $params;
         }
         foreach ($row as $key => $value) {
