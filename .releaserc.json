@@ -1,4 +1,43 @@
 {
-    "extends": "@hexonet/semantic-release-github-whmcsbase-config",
-    "branch": "master"
+    "plugins": [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        [
+            "@semantic-release/changelog",
+            {
+                "changelogFile": "HISTORY.md"
+            }
+        ],
+        [
+            "@semantic-release/exec",
+            {
+                "prepareCmd": "./updateVersion.sh ${nextRelease.version} && gulp release"
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "assets": [
+                    "HISTORY.md",
+                    "@(package?(-lock)|composer).json",
+                    "modules/**/ibs/*.(php|tpl)",
+                    "modules/**/whmcs.json",
+                    "whmcs-internetbs-*-latest.zip",
+                    "release.json",
+                    "reports"
+                ]
+            }
+        ],
+        [
+            "@semantic-release/github",
+            {
+                "assets": [
+                    {
+                        "label": "WHMCS Module (zip)",
+                        "path": "pkg/whmcs-*.zip"
+                    }
+                ]
+            }
+        ]
+    ]
 }
