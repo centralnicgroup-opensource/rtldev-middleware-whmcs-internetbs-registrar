@@ -27,8 +27,8 @@ To install our module please download the latest version from [here](https://git
 unpack it locally and then:
 
 1. Copy the **ibs** folder to whmcs modules/registrars
-2. Copy trademarkClaim.php to root of your WHMCS installation(needed for new gTLDs)
-3. Copy trademarkClaim.tpl to the your current template directory(needed for new gTLDs)
+2. _DEPRECATED_: Copy trademarkClaim.php to root of your WHMCS installation(needed for new gTLDs)
+3. _DEPRECATED_: Copy trademarkClaim.tpl to the your current template directory(needed for new gTLDs)
 4. Copy the file itterms.html to the root of your WHMCS installation (needed for .it domains)
 5. Optionally copy the files in the **lang** folder to root of your WHMCS installation (Currently we only bundle the Italian transaction. See [below](#localization) for details on adding your own.)
 6. Login to whmcs Admin area and activate the module.
