@@ -23,7 +23,7 @@ The Internet.bs Registrar Module is shipped with WHMCS but we have own version o
 
 ## Installation and Migration from older versions
 
-To install our module please download the latest version from [here](https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar/archive/refs/heads/master.zip),
+To install our module please download the latest version from [here](https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar/raw/master/whmcs-internetbs-registrar-latest.zip),
 unpack it locally and then:
 
 1. Copy the **ibs** folder to whmcs modules/registrars
