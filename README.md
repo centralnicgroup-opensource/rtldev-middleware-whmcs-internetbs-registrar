@@ -1,5 +1,13 @@
 # Internet.bs WHMCS Registrar Module
 
+> DEPRECATION NOTICE: Find the new ibs module version now available for download over this [link](https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs/raw/main/whmcs-ibs-registrar-latest.zip). The new repository is https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs. Issue to be reported there.
+
+Access to source code isn't at least for now not yet available. Report issues please in that repository. It is the successor of this one and the right place to address issues. Just ensure to mention "ibs" whenever you're reporting issues.
+I did my best with refactoring the entire module - still, it might include a bug - we changed ~2.5k lines of code.
+
+If that rewrite isn't patching your issue (I am sure it is not), please report it in the new repository.
+Thanks so much!
+
 The Internet.bs Registrar Module is shipped with WHMCS but we have own version of this Registrar Module which should be used instead of the WHMCS built-in Module.
 
 ## Supported Features
