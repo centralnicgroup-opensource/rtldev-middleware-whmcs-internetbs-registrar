@@ -31,8 +31,7 @@ The Internet.bs Registrar Module is shipped with WHMCS but we have own version o
 
 ## Installation and Migration from older versions
 
-To install our module please download the latest version from [here](https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs-internetbs-registrar/raw/master/whmcs-internetbs-registrar-latest.zip),
-unpack it locally and then:
+To install our module please download the latest version from [here](https://github.com/centralnicgroup-opensource/rtldev-middleware-whmcs/raw/main/whmcs-ibs-registrar-latest.zip), unpack it locally and then:
 
 1. Copy the **ibs** folder to whmcs modules/registrars
 2. _DEPRECATED_: Copy trademarkClaim.php to root of your WHMCS installation(needed for new gTLDs)
@@ -56,16 +55,7 @@ unpack it locally and then:
 
 ## Additional Fields
 
-WHMCS provides a way to define additional fields that are needed for some TLDs. We add those for our module via file WHMCSROOT/resources/domains/additionalfields.php. Initially, this file is not present and has to be created as follows:
-
-```php
-<?php
-include(ROOTDIR."/modules/registrars/ibs/ibs_additionaldomainfields.php");
-```
-
-Unfortunately we do not yet have support for all TLDs that have additional fields in our WHMCS module but plan to add it in future releases.
-
-From the TLDs that require additional data we currently support: .co.uk, .org.uk, .me.uk, .uk, .eu, .be, .asia, .fr, .re, .pm, .tf, .wf, .yt, .it, .de, .nl, .tel, .us
+This part of the docs got moved to [here](https://centralnicgroup-public.github.io/rtldev-middleware-documentation/docs/internetbs/whmcs/whmcs-ibs-registrar#additional-fields).
 
 <a name="localization"></a>
 
